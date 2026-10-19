@@ -1,901 +1,884 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.6">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px Courier; -webkit-text-stroke: #000000; min-height: 16.0px}
-    span.s1 {font-kerning: none}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>从心出发 · 港科大 TLE 个人数字生活图鉴</title>
+  <style>
+    /* 全局 CSS 变量系统（100% 离线可用，无需外部 CDN） */
+    :root {
+      --bg-main: #0b0f19;
+      --bg-card: rgba(18, 26, 43, 0.75);
+      --bg-card-hover: rgba(28, 40, 65, 0.85);
+      --border-card: rgba(255, 255, 255, 0.08);
+      --border-card-hover: rgba(249, 115, 22, 0.4);
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --text-muted: #64748b;
+      --accent-sunset: #f97316;
+      --accent-amber: #f59e0b;
+      --accent-green: #10b981;
+      --accent-blue: #3b82f6;
+      --nav-bg: rgba(11, 15, 25, 0.85);
+      --drawer-bg: #0f172a;
+    }
+
+    /* 亮色模式配置 */
+    body.light-mode {
+      --bg-main: #faf9f6;
+      --bg-card: rgba(255, 255, 255, 0.85);
+      --bg-card-hover: rgba(255, 255, 255, 0.98);
+      --border-card: rgba(0, 0, 0, 0.07);
+      --border-card-hover: rgba(249, 115, 22, 0.4);
+      --text-main: #0f172a;
+      --text-sub: #475569;
+      --text-muted: #94a3b8;
+      --nav-bg: rgba(250, 249, 246, 0.85);
+      --drawer-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      transition: background-color 0.3s ease, border-color 0.3s ease;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* 页面容器 */
+    .container {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* 毛玻璃通用效果 */
+    .glass-card {
+      background: var(--bg-card);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--border-card);
+      border-radius: 24px;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .glass-card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-card-hover);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 顶部导航 */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      background: var(--nav-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border-card);
+      height: 70px;
+    }
+
+    .nav-inner {
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-size: 1.15rem;
+      font-weight: 700;
+    }
+
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #f97316, #f59e0b);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 18px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 28px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-sunset);
+    }
+
+    .theme-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      padding: 8px 14px;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    /* Hero 首屏区 */
+    .hero-section {
+      padding: 130px 0 80px 0;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.25fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: rgba(249, 115, 22, 0.12);
+      color: var(--accent-sunset);
+      border: 1px solid rgba(249, 115, 22, 0.3);
+      margin-bottom: 20px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--accent-sunset);
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
+      animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
+    }
+
+    .hero-title {
+      font-size: 3.2rem;
+      line-height: 1.2;
+      font-weight: 800;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .gradient-text {
+      background: linear-gradient(135deg, #f97316 0%, #fbbf24 60%, #f43f5e 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      color: var(--text-sub);
+      font-size: 1.12rem;
+      line-height: 1.8;
+      margin-bottom: 30px;
+    }
+
+    .btn-group {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 26px rgba(249, 115, 22, 0.45);
+    }
+
+    .btn-secondary {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      padding: 14px 28px;
+      border-radius: 16px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--text-muted);
+    }
+
+    /* 仪表盘面板 */
+    .dashboard-card {
+      padding: 32px;
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .stat-box {
+      background: rgba(0, 0, 0, 0.2);
+      border: 1px solid var(--border-card);
+      border-radius: 18px;
+      padding: 20px;
+    }
+
+    body.light-mode .stat-box {
+      background: #f1f5f9;
+    }
+
+    .stat-num {
+      font-size: 2.2rem;
+      font-weight: 800;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .stat-label {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+    }
+
+    .quote-box {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(245, 158, 11, 0.05));
+      border: 1px solid rgba(249, 115, 22, 0.2);
+      border-radius: 16px;
+      padding: 18px;
+    }
+
+    .quote-text {
+      font-size: 0.95rem;
+      font-style: italic;
+      color: var(--text-main);
+    }
+
+    /* 章节标题 */
+    .section-wrap {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-card);
+    }
+
+    .section-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent-sunset);
+      margin-bottom: 8px;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 36px;
+      letter-spacing: -0.01em;
+    }
+
+    /* 3 列表网格 */
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      padding: 32px;
+    }
+
+    .feature-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    body.light-mode .feature-icon {
+      background: #f1f5f9;
+    }
+
+    .feature-card h4 {
+      font-size: 1.25rem;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .feature-card p {
+      color: var(--text-sub);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    /* 地标卡片网格 (4列) */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .poi-card {
+      padding: 24px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .poi-cover {
+      height: 140px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      margin-bottom: 18px;
+    }
+
+    .poi-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+
+    .poi-highlight {
+      color: var(--accent-sunset);
+      font-weight: 700;
+    }
+
+    .poi-card h4 {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .poi-card p {
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* 2 列网格 (日常微习惯 / 宝贝们) */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .habit-card {
+      padding: 36px;
+    }
+
+    .habit-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 18px;
+    }
+
+    .pill-tag {
+      font-size: 0.8rem;
+      padding: 5px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.06);
+      color: var(--text-sub);
+    }
+
+    body.light-mode .pill-tag {
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    /* 抽屉弹出层 (Slide-over Drawer) */
+    .drawer-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+      z-index: 200;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .drawer-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .drawer-panel {
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      max-width: 440px;
+      background: var(--drawer-bg);
+      border-left: 1px solid var(--border-card);
+      z-index: 210;
+      padding: 36px;
+      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
+      transform: translateX(100%);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      overflow-y: auto;
+    }
+
+    .drawer-panel.active {
+      transform: translateX(0);
+    }
+
+    .drawer-close {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .drawer-icon-box {
+      font-size: 64px;
+      text-align: center;
+      padding: 24px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 20px;
+      margin: 20px 0;
+    }
+
+    /* 页脚 */
+    footer {
+      border-top: 1px solid var(--border-card);
+      padding: 40px 0;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .grid-4 { grid-template-columns: 1fr 1fr; }
+      .grid-2 { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      .hero-title { font-size: 2.4rem; }
+    }
+
+    @media (max-width: 600px) {
+      .grid-4 { grid-template-columns: 1fr; }
+      .stat-row { grid-template-columns: 1fr; }
+    }
   </style>
 </head>
 <body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE html&gt;</span></p>
-<p class="p1"><span class="s1">&lt;html lang="zh-CN"&gt;</span></p>
-<p class="p1"><span class="s1">&lt;head&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;title&gt;从心出发 · 港科大 TLE 个人数字生活图鉴&lt;/title&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;style&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 全局 CSS 变量系统（100% 离线可用，无需外部 CDN） */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>:root {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg-main: #0b0f19;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg-card: rgba(18, 26, 43, 0.75);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg-card-hover: rgba(28, 40, 65, 0.85);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--border-card: rgba(255, 255, 255, 0.08);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--border-card-hover: rgba(249, 115, 22, 0.4);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-main: #f8fafc;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-sub: #94a3b8;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-muted: #64748b;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--accent-sunset: #f97316;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--accent-amber: #f59e0b;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--accent-green: #10b981;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--accent-blue: #3b82f6;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--nav-bg: rgba(11, 15, 25, 0.85);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--drawer-bg: #0f172a;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 亮色模式配置 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-mode {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg-main: #faf9f6;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg-card: rgba(255, 255, 255, 0.85);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--bg-card-hover: rgba(255, 255, 255, 0.98);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--border-card: rgba(0, 0, 0, 0.07);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--border-card-hover: rgba(249, 115, 22, 0.4);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-main: #0f172a;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-sub: #475569;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--text-muted: #94a3b8;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--nav-bg: rgba(250, 249, 246, 0.85);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>--drawer-bg: #ffffff;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>* {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-sizing: border-box;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: background-color 0.3s ease, border-color 0.3s ease;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>html {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>scroll-behavior: smooth;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background-color: var(--bg-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>line-height: 1.6;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>min-height: 100vh;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>overflow-x: hidden;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 页面容器 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.container {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>max-width: 1140px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 0 auto;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 0 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 毛玻璃通用效果 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.glass-card {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--bg-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(16px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>-webkit-backdrop-filter: blur(16px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.glass-card:hover {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--bg-card-hover);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-color: var(--border-card-hover);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transform: translateY(-4px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.3);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 顶部导航 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>header {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>position: fixed;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>top: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>left: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>right: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>z-index: 100;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--nav-bg);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(20px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>-webkit-backdrop-filter: blur(20px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 70px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.nav-inner {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 70px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: space-between;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.brand {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-decoration: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 1.15rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 700;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.brand-icon {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #f97316, #f59e0b);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 10px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #fff;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 18px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.nav-links {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 28px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.nav-links a {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-decoration: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 500;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: color 0.2s;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.nav-links a:hover {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--accent-sunset);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.theme-btn {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--bg-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 8px 14px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 12px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 1rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 6px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* Hero 首屏区 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.hero-section {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 130px 0 80px 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.hero-grid {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: grid;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>grid-template-columns: 1.25fr 0.95fr;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 48px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.badge {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: inline-flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 6px 14px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 9999px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 600;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(249, 115, 22, 0.12);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--accent-sunset);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(249, 115, 22, 0.3);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.pulse-dot {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--accent-sunset);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 50%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>animation: pulse 1.8s infinite;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>@keyframes pulse {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.hero-title {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 3.2rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>line-height: 1.2;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 800;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>letter-spacing: -0.02em;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.gradient-text {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #f97316 0%, #fbbf24 60%, #f43f5e 100%);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>-webkit-background-clip: text;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>-webkit-text-fill-color: transparent;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.hero-desc {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 1.12rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>line-height: 1.8;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 30px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn-group {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn-primary {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #f97316, #ea580c);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #fff;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 14px 28px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-decoration: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 600;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: transform 0.2s, box-shadow 0.2s;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn-primary:hover {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transform: translateY(-2px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: 0 12px 26px rgba(249, 115, 22, 0.45);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn-secondary {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--bg-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 14px 28px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-decoration: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 600;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.btn-secondary:hover {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-color: var(--text-muted);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 仪表盘面板 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.dashboard-card {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 32px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-row {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: grid;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>grid-template-columns: 1fr 1fr;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 24px 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-box {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(0, 0, 0, 0.2);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 18px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-mode .stat-box {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: #f1f5f9;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-num {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 2.2rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 800;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>line-height: 1;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 6px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.stat-label {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.quote-box {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(245, 158, 11, 0.05));</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(249, 115, 22, 0.2);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 18px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.quote-text {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-style: italic;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 章节标题 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.section-wrap {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 80px 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.section-tag {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.85rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 700;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-transform: uppercase;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>letter-spacing: 0.1em;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--accent-sunset);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.section-title {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 2.2rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 800;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>letter-spacing: -0.01em;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 3 列表网格 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.grid-3 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: grid;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(3, 1fr);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.feature-card {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 32px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.feature-icon {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 56px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 56px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 28px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.06);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-mode .feature-icon {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: #f1f5f9;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.feature-card h4 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 1.25rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 12px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 700;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.feature-card p {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.95rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>line-height: 1.7;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 地标卡片网格 (4列) */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.grid-4 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: grid;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(4, 1fr);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.poi-card {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>position: relative;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.poi-cover {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 140px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 48px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 18px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.poi-header {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: space-between;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.8rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-muted);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 6px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.poi-highlight {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--accent-sunset);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 700;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.poi-card h4 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 1.15rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-weight: 700;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.poi-card p {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.88rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>line-height: 1.6;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 2 列网格 (日常微习惯 / 宝贝们) */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.grid-2 {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: grid;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>grid-template-columns: repeat(2, 1fr);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 28px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.habit-card {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.habit-icon {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 40px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-bottom: 16px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.tag-cloud {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>gap: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin-top: 18px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.pill-tag {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.8rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 5px 12px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 8px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.06);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-sub);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>body.light-mode .pill-tag {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: #e2e8f0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: #334155;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 抽屉弹出层 (Slide-over Drawer) */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.drawer-overlay {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>position: fixed;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>inset: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(0, 0, 0, 0.6);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>backdrop-filter: blur(4px);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>z-index: 200;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>opacity: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>pointer-events: none;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: opacity 0.3s ease;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.drawer-overlay.active {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>opacity: 1;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>pointer-events: auto;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.drawer-panel {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>position: fixed;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>top: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>right: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>bottom: 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 100%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>max-width: 440px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: var(--drawer-bg);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-left: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>z-index: 210;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transform: translateX(100%);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>overflow-y: auto;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.drawer-panel.active {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>transform: translateX(0);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.drawer-close {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>position: absolute;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>top: 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>right: 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>width: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>height: 36px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 50%;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.08);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-main);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>cursor: pointer;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>display: flex;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>align-items: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>justify-content: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 18px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>.drawer-icon-box {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 64px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 24px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>background: rgba(255, 255, 255, 0.04);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-radius: 20px;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>margin: 20px 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 页脚 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>footer {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--border-card);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>padding: 40px 0;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>text-align: center;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>color: var(--text-muted);</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>font-size: 0.9rem;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>/* 移动端适配 */</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>@media (max-width: 900px) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.hero-grid { grid-template-columns: 1fr; gap: 32px; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.grid-3 { grid-template-columns: 1fr; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.grid-4 { grid-template-columns: 1fr 1fr; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.grid-2 { grid-template-columns: 1fr; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.nav-links { display: none; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.hero-title { font-size: 2.4rem; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>@media (max-width: 600px) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.grid-4 { grid-template-columns: 1fr; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>.stat-row { grid-template-columns: 1fr; }</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/head&gt;</span></p>
-<p class="p1"><span class="s1">&lt;body&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- 顶部导航栏 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;header&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="container nav-inner"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;a href="#" class="brand"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="brand-icon"&gt;❤️&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span&gt;从心出发&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/a&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;nav class="nav-links"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="#about"&gt;关于我&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="#academic"&gt;香港学习&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="#hklife"&gt;山海探索&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="#dailylog"&gt;日常自律&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;a href="#treasures"&gt;我的宝贝们&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/nav&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;button class="theme-btn" id="theme-btn" onclick="toggleTheme()"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span id="theme-icon"&gt;🌙&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;span id="theme-text" style="font-size: 0.85rem;"&gt;深色&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;main&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- Hero 封面区 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section id="about" class="container hero-section"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="hero-grid"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="badge"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;span class="pulse-dot"&gt;&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;span&gt;HKUST 跨学科学院 · TLE 项目在读&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h1 class="hero-title"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>十余年职场后，&lt;br&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;span class="gradient-text"&gt;从 ❤️ 再出发。&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/h1&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;p class="hero-desc"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>职场打拼十余年，重返学术殿堂。在香港科技大学清水湾畔探索科技领导力与前沿创新的同时，也保持着自律锻炼、每周奔赴山海，以及陪伴两个宝贝健康快乐成长。</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="btn-group"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;a href="#hklife" class="btn-primary"&gt;🌏 探索香港山海足迹&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;a href="#academic" class="btn-secondary"&gt;🎓 查看科研与学业&lt;/a&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;!-- 个人状态看板 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="glass-card dashboard-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-card); padding-bottom: 16px;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;"&gt;Current Status&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="font-size: 1.25rem; font-weight: 700;"&gt;学术深造 · 科技领导力&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 600;"&gt;Active&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="stat-row"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="stat-box"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div class="stat-num" style="color: var(--accent-sunset);"&gt;10+&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div class="stat-label"&gt;年产业实战积累&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="stat-box"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div class="stat-num" style="color: var(--accent-green);"&gt;MSc&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div class="stat-label"&gt;HKUST TLE 跨学科&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="quote-box"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-sunset); margin-bottom: 4px;"&gt;日常信念&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="quote-text"&gt;“心有所向，日复一日；山海辽阔，步履不停。”&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- 01 香港学习 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section id="academic" class="section-wrap"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="section-tag"&gt;Section 01 · 精进与探索&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;香港科技大学 (HKUST) 学术历程&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="grid-3"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card feature-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="feature-icon"&gt;🏛️&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;TLE 跨学科项目&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;Technology Leadership and Entrepreneurship。深度融合硬核工程技术与商业领导力，致力于将前沿科研成果推向产业落地。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="feature-icon-box glass-card feature-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="feature-icon"&gt;💡&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;智慧水下与具身智能&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;专注低扰动水下清淤机器人（DugongBot）与具身情感陪伴机器人原型研发，探索流体动力学喷嘴与轻量化控制系统设计。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card feature-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="feature-icon"&gt;📖&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;清水湾研学日常&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;李兆基商学大楼的研讨机位、海景图书馆的长桌、红鸟日晷广场。在学术专注与多元思想碰撞中重构认知边界。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- 02 山海探索 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section id="hklife" class="section-wrap"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px; flex-wrap: gap: 12px;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="section-tag" style="color: var(--accent-green);"&gt;Section 02 · 霓虹与山海&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h2 class="section-title" style="margin-bottom: 0;"&gt;香港微观探索足迹&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;span style="font-size: 0.85rem; color: var(--text-muted);"&gt;点击卡片展开独家记忆与游玩贴士 👆&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="grid-4"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;!-- HKUST --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card poi-card" onclick="openDrawer('hkust')"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-cover" style="background: linear-gradient(135deg, #f97316, #fb7185);"&gt;🎓&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-header"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span&gt;清水湾 · 学术&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="poi-highlight"&gt;★ 常驻&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;香港科技大学&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;依山傍海的科研圣地，智慧池与红鸟见证每一次灵感迸发。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;!-- 西贡 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card poi-card" onclick="openDrawer('saikung')"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-cover" style="background: linear-gradient(135deg, #10b981, #06b6d4);"&gt;⛵&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-header"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span&gt;西贡码头 · 出海&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="poi-highlight" style="color: #10b981;"&gt;★ 每周 Hike&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;西贡与地质公园&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;香港的后花园，远离城市喧嚣，与好友看山看海的最佳路线。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;!-- 坚尼地城 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card poi-card" onclick="openDrawer('ktown')"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-cover" style="background: linear-gradient(135deg, #f59e0b, #f97316);"&gt;🚃&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-header"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span&gt;港岛西 · 日落&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="poi-highlight" style="color: #f59e0b;"&gt;★ 浪漫&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;坚尼地城海旁&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;叮叮车的终点站，吹着海风等一场橘子海日落。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;!-- 维港 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card poi-card" onclick="openDrawer('vic')"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-cover" style="background: linear-gradient(135deg, #3b82f6, #6366f1);"&gt;🌃&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="poi-header"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span&gt;尖沙咀 · 天际线&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="poi-highlight" style="color: #6366f1;"&gt;★ 经典&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h4&gt;维多利亚港夜幕&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p&gt;渡轮悠悠，灯火璀璨，感受世界级都市的澎湃心跳。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- 03 日常自律 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section id="dailylog" class="section-wrap"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="section-tag"&gt;Section 03 · 呼吸与日常&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;h2 class="section-title"&gt;日常微习惯与自律心流&lt;/h2&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="grid-2"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card habit-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="habit-icon"&gt;🏋️‍♂️&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3 style="font-size: 1.3rem; margin-bottom: 10px;"&gt;每天健身房：小哑铃的专注时光&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>无论学业与研发多忙碌，每天雷打不动回到健身房进行力量锻炼。不盲目追求大重量，只享受肌肉泵感与心率提升带来的自律掌控感。</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="tag-cloud"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 连续坚持 300+ 天&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 核心力量重构&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 保持清醒专注&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card habit-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="habit-icon"&gt;🥾&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;h3 style="font-size: 1.3rem; margin-bottom: 10px;"&gt;每周出动：香港山海的惬意放空&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>周末约上好友，背上水壶直奔西贡大浪湾或麦理浩径山巅。在山海相接的辽阔绿意里大口呼吸，听海浪拍打火山岩石，洗涤一周的疲惫。</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="tag-cloud"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 麦理浩径徒步&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 西贡海风放空&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 户外山海疗愈&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;!-- 04 我的宝贝们 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;section id="treasures" class="section-wrap"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div style="text-align: center; max-width: 600px; margin: 0 auto 40px auto;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="section-tag" style="color: #f43f5e;"&gt;Section 04 · 治愈与爱&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;h2 class="section-title" style="margin-bottom: 10px;"&gt;我的两个宝贝&lt;/h2&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;p style="color: var(--text-sub); font-size: 0.95rem;"&gt;家庭永远是最坚实的后盾，陪伴两个宝贝健康快乐成长是世界上最幸福的事。&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;div class="grid-2"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;!-- 哥哥 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card habit-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; font-size: 26px;"&gt;🚁&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h3 style="font-size: 1.3rem;"&gt;哥哥&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;span style="font-size: 0.8rem; color: #3b82f6; font-weight: 600;"&gt;活力小极客 · 探索者&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>天生热爱运动，充满探索精神。最近对无人机操控和航模充满狂热，周末总是兴奋地调试设备，在阳光下尽情奔跑。</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="tag-cloud"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 无人机航拍&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 户外跑步&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 科技好奇心&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;!-- 妹妹 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;div class="glass-card habit-card"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(244, 63, 94, 0.15); display: flex; align-items: center; justify-content: center; font-size: 26px;"&gt;🩰&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;h3 style="font-size: 1.3rem;"&gt;妹妹&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">                </span>&lt;span style="font-size: 0.8rem; color: #f43f5e; font-weight: 600;"&gt;甜美小精灵 · 艺术家&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>活泼可爱、眼里带笑的小姑娘。最爱随着旋律翩翩起舞，在黑白钢琴键上弹奏灵动的童年乐章，是家里时刻充满欢笑的开心果。</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;div class="tag-cloud"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 芭蕾律动&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 钢琴独奏&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">              </span>&lt;span class="pill-tag"&gt;# 甜美治愈&lt;/span&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- 详情抽屉 (Slide Drawer) --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"&gt;&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;div class="drawer-panel" id="drawer-panel"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button class="drawer-close" onclick="closeDrawer()"&gt;✕&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-sunset); text-transform: uppercase;" id="drawer-tag"&gt;HK POI DETAILS&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="drawer-icon-box" id="drawer-icon"&gt;📍&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 6px;" id="drawer-title"&gt;地标标题&lt;/h3&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div style="font-size: 0.85rem; color: var(--text-muted); font-family: monospace; margin-bottom: 24px;" id="drawer-coords"&gt;坐标&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div style="margin-bottom: 20px;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;"&gt;我的独家记忆&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p style="background: rgba(255, 255, 255, 0.04); padding: 16px; border-radius: 14px; color: var(--text-sub); font-size: 0.92rem;" id="drawer-story"&gt;回忆故事...&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div style="margin-bottom: 30px;"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;"&gt;交通与游玩贴士&lt;/h4&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p style="background: rgba(255, 255, 255, 0.04); padding: 16px; border-radius: 14px; color: var(--text-sub); font-size: 0.92rem;" id="drawer-tips"&gt;游玩贴士...&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;button onclick="closeDrawer()" class="btn-primary" style="width: 100%; border: none; cursor: pointer; text-align: center;"&gt;关闭详情&lt;/button&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- 页脚 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;footer&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;div class="container"&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p&gt;Designed with Vibe Coding · 100% Standalone Pure CSS · Hosted on GitHub Pages&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>&lt;p style="margin-top: 6px; font-size: 0.8rem;"&gt;© 2025 HKUST TLE Student Project · All Rights Reserved.&lt;/p&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;!-- 交互脚本 --&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;script&gt;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 亮暗模式切换</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function toggleTheme() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const isLight = document.body.classList.toggle('light-mode');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('theme-text').textContent = isLight ? '浅色' : '深色';</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>// 地标数据库</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>const poiData = {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>hkust: {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tag: 'HKUST · 清水湾',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>icon: '🎓',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>title: '香港科技大学 (HKUST)',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>coords: '[114.2637° E, 22.3364° N]',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>story: '依山傍海的智慧殿堂。红鸟日晷见证着无数深夜的研讨灵感，李兆基商学大楼的研讨室记录着每一次商业与科技交锋的火花。',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tips: '从坑口 MTR 站乘坐 11M 小巴或彩虹站乘 91M 即可直达北闸，学术大楼海景机位视野绝佳。'</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>saikung: {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tag: 'Sai Kung · 后花园',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>icon: '⛵',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>title: '西贡码头与国家地质公园',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>coords: '[114.2744° E, 22.3813° N]',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>story: '远离都市尘嚣的秘密基地。周末与朋友出海，徒步破边洲与大浪四湾，吹着海风吃一碗地道的海鲜汤粉。',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tips: '在西贡码头可乘坐街渡前往半月湾或桥咀洲；建议穿抓地力强的徒步鞋并备足电解质水。'</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>ktown: {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tag: 'Kennedy Town · 日落',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>icon: '🚃',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>title: '坚尼地城海旁',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>coords: '[114.1278° E, 22.2829° N]',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>story: '叮叮车的最西端。黄昏时分点一杯冰咖啡，看着电车缓缓驶过，海面上泛着落日熔金的橘子海。',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tips: '从港铁坚尼地城站 C 出口步行 5 分钟到海旁篮球场；日落前半小时光线最佳。'</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>},</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>vic: {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tag: 'Victoria Harbour · 天际线',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>icon: '🌃',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>title: '维多利亚港 / 星光大道',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>coords: '[114.1733° E, 22.2936° N]',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>story: '百看不厌的港风浪漫。天星小轮在浪花中摇曳，夜幕降临后全港霓虹点亮，感受这座城市不息的脉搏。',</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">        </span>tips: '推荐花费几元港币体验天星小轮尖沙咀至中环航线，性价比极高的海上观景视角。'</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>};</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function openDrawer(key) {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>const data = poiData[key];</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>if (!data) return;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-tag').textContent = data.tag;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-icon').textContent = data.icon;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-title').textContent = data.title;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-coords').textContent = data.coords;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-story').textContent = data.story;</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-tips').textContent = data.tips;</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-overlay').classList.add('active');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-panel').classList.add('active');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p2"><span class="s1"></span><br></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>function closeDrawer() {</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-overlay').classList.remove('active');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">      </span>document.getElementById('drawer-panel').classList.remove('active');</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">    </span>}</span></p>
-<p class="p1"><span class="s1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/body&gt;</span></p>
-<p class="p1"><span class="s1">&lt;/html&gt;</span></p>
+
+  <!-- 顶部导航栏 -->
+  <header>
+    <div class="container nav-inner">
+      <a href="#" class="brand">
+        <div class="brand-icon">❤️</div>
+        <span>从心出发</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#about">关于我</a>
+        <a href="#academic">香港学习</a>
+        <a href="#hklife">山海探索</a>
+        <a href="#dailylog">日常自律</a>
+        <a href="#treasures">我的宝贝们</a>
+      </nav>
+
+      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">
+        <span id="theme-icon">🌙</span>
+        <span id="theme-text" style="font-size: 0.85rem;">深色</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Hero 首屏区 -->
+    <section id="about" class="container hero-section">
+      <div class="hero-grid">
+        <div>
+          <div class="badge">
+            <span class="pulse-dot"></span>
+            <span>HKUST 跨学科学院 · TLE 项目在读</span>
+          </div>
+          <h1 class="hero-title">
+            十余年职场后，<br>
+            <span class="gradient-text">从 ❤️ 再出发。</span>
+          </h1>
+          <p class="hero-desc">
+            职场打拼十余年，重返学术殿堂。在香港科技大学清水湾畔探索科技领导力与前沿创新的同时，也保持着自律锻炼、每周奔赴山海，以及陪伴两个宝贝健康快乐成长。
+          </p>
+          <div class="btn-group">
+            <a href="#hklife" class="btn-primary">🌏 探索香港山海足迹</a>
+            <a href="#academic" class="btn-secondary">🎓 查看科研与学业</a>
+          </div>
+        </div>
+
+        <!-- 个人状态看板 -->
+        <div class="glass-card dashboard-card">
+          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-card); padding-bottom: 16px;">
+            <div>
+              <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Current Status</div>
+              <div style="font-size: 1.25rem; font-weight: 700;">学术深造 · 科技领导力</div>
+            </div>
+            <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 600;">Active</span>
+          </div>
+
+          <div class="stat-row">
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--accent-sunset);">10+</div>
+              <div class="stat-label">年产业实战积累</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num" style="color: var(--accent-green);">MSc</div>
+              <div class="stat-label">HKUST TLE 跨学科</div>
+            </div>
+          </div>
+
+          <div class="quote-box">
+            <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-sunset); margin-bottom: 4px;">日常信念</div>
+            <div class="quote-text">“心有所向，日复一日；山海辽阔，步履不停。”</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 01 香港学习 -->
+    <section id="academic" class="section-wrap">
+      <div class="container">
+        <div class="section-tag">Section 01 · 精进与探索</div>
+        <h2 class="section-title">香港科技大学 (HKUST) 学术历程</h2>
+
+        <div class="grid-3">
+          <div class="glass-card feature-card">
+            <div class="feature-icon">🏛️</div>
+            <h4>TLE 跨学科项目</h4>
+            <p>Technology Leadership and Entrepreneurship。深度融合硬核工程技术与商业领导力，致力于将前沿科研成果推向产业落地。</p>
+          </div>
+          <div class="glass-card feature-card">
+            <div class="feature-icon">💡</div>
+            <h4>智慧水下与具身智能</h4>
+            <p>专注低扰动水下清淤机器人（DugongBot）与具身情感陪伴机器人原型研发，探索流体动力学喷嘴与轻量化控制系统设计。</p>
+          </div>
+          <div class="glass-card feature-card">
+            <div class="feature-icon">📖</div>
+            <h4>清水湾研学日常</h4>
+            <p>李兆基商学大楼的研讨机位、海景图书馆的长桌、红鸟日晷广场。在学术专注与多元思想碰撞中重构认知边界。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 02 山海探索 -->
+    <section id="hklife" class="section-wrap">
+      <div class="container">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px;">
+          <div>
+            <div class="section-tag" style="color: var(--accent-green);">Section 02 · 霓虹与山海</div>
+            <h2 class="section-title" style="margin-bottom: 0;">香港微观探索足迹</h2>
+          </div>
+          <span style="font-size: 0.85rem; color: var(--text-muted);">点击卡片展开独家记忆与游玩贴士 👆</span>
+        </div>
+
+        <div class="grid-4">
+          <!-- HKUST -->
+          <div class="glass-card poi-card" onclick="openDrawer('hkust')">
+            <div class="poi-cover" style="background: linear-gradient(135deg, #f97316, #fb7185);">🎓</div>
+            <div class="poi-header">
+              <span>清水湾 · 学术</span>
+              <span class="poi-highlight">★ 常驻</span>
+            </div>
+            <h4>香港科技大学</h4>
+            <p>依山傍海的科研圣地，智慧池与红鸟见证每一次灵感迸发。</p>
+          </div>
+
+          <!-- 西贡 -->
+          <div class="glass-card poi-card" onclick="openDrawer('saikung')">
+            <div class="poi-cover" style="background: linear-gradient(135deg, #10b981, #06b6d4);">⛵</div>
+            <div class="poi-header">
+              <span>西贡码头 · 出海</span>
+              <span class="poi-highlight" style="color: #10b981;">★ 每周 Hike</span>
+            </div>
+            <h4>西贡与地质公园</h4>
+            <p>香港的后花园，远离城市喧嚣，与好友看山看海的最佳路线。</p>
+          </div>
+
+          <!-- 坚尼地城 -->
+          <div class="glass-card poi-card" onclick="openDrawer('ktown')">
+            <div class="poi-cover" style="background: linear-gradient(135deg, #f59e0b, #f97316);">🚃</div>
+            <div class="poi-header">
+              <span>港岛西 · 日落</span>
+              <span class="poi-highlight" style="color: #f59e0b;">★ 浪漫</span>
+            </div>
+            <h4>坚尼地城海旁</h4>
+            <p>叮叮车的终点站，吹着海风等一场橘子海日落。</p>
+          </div>
+
+          <!-- 维港 -->
+          <div class="glass-card poi-card" onclick="openDrawer('vic')">
+            <div class="poi-cover" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">🌃</div>
+            <div class="poi-header">
+              <span>尖沙咀 · 天际线</span>
+              <span class="poi-highlight" style="color: #6366f1;">★ 经典</span>
+            </div>
+            <h4>维多利亚港夜幕</h4>
+            <p>渡轮悠悠，灯火璀璨，感受世界级都市的澎湃心跳。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 03 日常自律 -->
+    <section id="dailylog" class="section-wrap">
+      <div class="container">
+        <div class="section-tag">Section 03 · 呼吸与日常</div>
+        <h2 class="section-title">日常微习惯与自律心流</h2>
+
+        <div class="grid-2">
+          <div class="glass-card habit-card">
+            <div class="habit-icon">🏋️‍♂️</div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 10px;">每天健身房：小哑铃的专注时光</h3>
+            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+              无论学业与研发多忙碌，每天雷打不动回到健身房进行力量锻炼。不盲目追求大重量，只享受肌肉泵感与心率提升带来的自律掌控感。
+            </p>
+            <div class="tag-cloud">
+              <span class="pill-tag"># 连续坚持 300+ 天</span>
+              <span class="pill-tag"># 核心力量重构</span>
+              <span class="pill-tag"># 保持清醒专注</span>
+            </div>
+          </div>
+
+          <div class="glass-card habit-card">
+            <div class="habit-icon">🥾</div>
+            <h3 style="font-size: 1.3rem; margin-bottom: 10px;">每周出动：香港山海的惬意放空</h3>
+            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+              周末约上好友，背上水壶直奔西贡大浪湾或麦理浩径山巅。在山海相接的辽阔绿意里大口呼吸，听海浪拍打火山岩石，洗涤一周的疲惫。
+            </p>
+            <div class="tag-cloud">
+              <span class="pill-tag"># 麦理浩径徒步</span>
+              <span class="pill-tag"># 西贡海风放空</span>
+              <span class="pill-tag"># 户外山海疗愈</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 04 我的宝贝们 -->
+    <section id="treasures" class="section-wrap">
+      <div class="container">
+        <div style="text-align: center; max-width: 600px; margin: 0 auto 40px auto;">
+          <div class="section-tag" style="color: #f43f5e;">Section 04 · 治愈与爱</div>
+          <h2 class="section-title" style="margin-bottom: 10px;">我的两个宝贝</h2>
+          <p style="color: var(--text-sub); font-size: 0.95rem;">家庭永远是最坚实的后盾，陪伴两个宝贝健康快乐成长是世界上最幸福的事。</p>
+        </div>
+
+        <div class="grid-2">
+          <!-- 哥哥 -->
+          <div class="glass-card habit-card">
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+              <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; font-size: 26px;">🚁</div>
+              <div>
+                <h3 style="font-size: 1.3rem;">哥哥</h3>
+                <span style="font-size: 0.8rem; color: #3b82f6; font-weight: 600;">活力小极客 · 探索者</span>
+              </div>
+            </div>
+            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+              天生热爱运动，充满探索精神。最近对无人机操控和航模充满狂热，周末总是兴奋地调试设备，在阳光下尽情奔跑。
+            </p>
+            <div class="tag-cloud">
+              <span class="pill-tag"># 无人机航拍</span>
+              <span class="pill-tag"># 户外跑步</span>
+              <span class="pill-tag"># 科技好奇心</span>
+            </div>
+          </div>
+
+          <!-- 妹妹 -->
+          <div class="glass-card habit-card">
+            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
+              <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(244, 63, 94, 0.15); display: flex; align-items: center; justify-content: center; font-size: 26px;">🩰</div>
+              <div>
+                <h3 style="font-size: 1.3rem;">妹妹</h3>
+                <span style="font-size: 0.8rem; color: #f43f5e; font-weight: 600;">甜美小精灵 · 艺术家</span>
+              </div>
+            </div>
+            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
+              活泼可爱、眼里带笑的小姑娘。最爱随着旋律翩翩起舞，在黑白钢琴键上弹奏灵动的童年乐章，是家里时刻充满欢笑的开心果。
+            </p>
+            <div class="tag-cloud">
+              <span class="pill-tag"># 芭蕾律动</span>
+              <span class="pill-tag"># 钢琴独奏</span>
+              <span class="pill-tag"># 甜美治愈</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 详情抽屉 (Slide Drawer) -->
+  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
+  <div class="drawer-panel" id="drawer-panel">
+    <button class="drawer-close" onclick="closeDrawer()">✕</button>
+    <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-sunset); text-transform: uppercase;" id="drawer-tag">HK POI DETAILS</div>
+    <div class="drawer-icon-box" id="drawer-icon">📍</div>
+    <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 6px;" id="drawer-title">地标标题</h3>
+    <div style="font-size: 0.85rem; color: var(--text-muted); font-family: monospace; margin-bottom: 24px;" id="drawer-coords">坐标</div>
+
+    <div style="margin-bottom: 20px;">
+      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">我的独家记忆</h4>
+      <p style="background: rgba(255, 255, 255, 0.04); padding: 16px; border-radius: 14px; color: var(--text-sub); font-size: 0.92rem;" id="drawer-story">回忆故事...</p>
+    </div>
+
+    <div style="margin-bottom: 30px;">
+      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">交通与游玩贴士</h4>
+      <p style="background: rgba(255, 255, 255, 0.04); padding: 16px; border-radius: 14px; color: var(--text-sub); font-size: 0.92rem;" id="drawer-tips">游玩贴士...</p>
+    </div>
+
+    <button onclick="closeDrawer()" class="btn-primary" style="width: 100%; border: none; cursor: pointer; text-align: center;">关闭详情</button>
+  </div>
+
+  <!-- 页脚 -->
+  <footer>
+    <div class="container">
+      <p>Designed with Vibe Coding · 100% Standalone Pure CSS · Hosted on GitHub Pages</p>
+      <p style="margin-top: 6px; font-size: 0.8rem;">© 2025 HKUST TLE Student Project · All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 交互脚本 -->
+  <script>
+    // 亮暗模式切换
+    function toggleTheme() {
+      const isLight = document.body.classList.toggle('light-mode');
+      document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
+      document.getElementById('theme-text').textContent = isLight ? '浅色' : '深色';
+    }
+
+    // 地标数据库
+    const poiData = {
+      hkust: {
+        tag: 'HKUST · 清水湾',
+        icon: '🎓',
+        title: '香港科技大学 (HKUST)',
+        coords: '[114.2637° E, 22.3364° N]',
+        story: '依山傍海的智慧殿堂。红鸟日晷见证着无数深夜的研讨灵感，李兆基商学大楼的研讨室记录着每一次商业与科技交锋的火花。',
+        tips: '从坑口 MTR 站乘坐 11M 小巴或彩虹站乘 91M 即可直达北闸，学术大楼海景机位视野绝佳。'
+      },
+      saikung: {
+        tag: 'Sai Kung · 后花园',
+        icon: '⛵',
+        title: '西贡码头与国家地质公园',
+        coords: '[114.2744° E, 22.3813° N]',
+        story: '远离都市尘嚣的秘密基地。周末与朋友出海，徒步破边洲与大浪四湾，吹着海风吃一碗地道的海鲜汤粉。',
+        tips: '在西贡码头可乘坐街渡前往半月湾或桥咀洲；建议穿抓地力强的徒步鞋并备足电解质水。'
+      },
+      ktown: {
+        tag: 'Kennedy Town · 日落',
+        icon: '🚃',
+        title: '坚尼地城海旁',
+        coords: '[114.1278° E, 22.2829° N]',
+        story: '叮叮车的最西端。黄昏时分点一杯冰咖啡，看着电车缓缓驶过，海面上泛着落日熔金的橘子海。',
+        tips: '从港铁坚尼地城站 C 出口步行 5 分钟到海旁篮球场；日落前半小时光线最佳。'
+      },
+      vic: {
+        tag: 'Victoria Harbour · 天际线',
+        icon: '🌃',
+        title: '维多利亚港 / 星光大道',
+        coords: '[114.1733° E, 22.2936° N]',
+        story: '百看不厌的港风浪漫。天星小轮在浪花中摇曳，夜幕降临后全港霓虹点亮，感受这座城市不息的脉搏。',
+        tips: '推荐花费几元港币体验天星小轮尖沙咀至中环航线，性价比极高的海上观景视角。'
+      }
+    };
+
+    function openDrawer(key) {
+      const data = poiData[key];
+      if (!data) return;
+      document.getElementById('drawer-tag').textContent = data.tag;
+      document.getElementById('drawer-icon').textContent = data.icon;
+      document.getElementById('drawer-title').textContent = data.title;
+      document.getElementById('drawer-coords').textContent = data.coords;
+      document.getElementById('drawer-story').textContent = data.story;
+      document.getElementById('drawer-tips').textContent = data.tips;
+
+      document.getElementById('drawer-overlay').classList.add('active');
+      document.getElementById('drawer-panel').classList.add('active');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawer-overlay').classList.remove('active');
+      document.getElementById('drawer-panel').classList.remove('active');
+    }
+  </script>
 </body>
 </html>
