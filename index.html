@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh-CN" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>从心出发 · 港科大 TLE 个人数字生活图鉴</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Serif+SC:wght@400;600;700&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+            serif: ['"Noto Serif SC"', 'serif'],
+          },
+          colors: {
+            darkbg: '#0F172A',
+            milkwarm: '#FAF9F6',
+            sunset: '#F97316',
+            healing: '#10B981',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .glass-card {
+      background: rgba(255, 255, 255, 0.75);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+    }
+    .dark .glass-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-nav {
+      background: rgba(250, 249, 246, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+    .dark .glass-nav {
+      background: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+    }
+  </style>
+</head>
+<body class="bg-milkwarm text-slate-800 dark:bg-darkbg dark:text-slate-100 transition-colors duration-300 min-h-screen font-sans selection:bg-orange-500 selection:text-white">
+
+  <!-- 顶部毛玻璃导航栏 -->
+  <header class="fixed top-0 left-0 right-0 z-40 glass-nav border-b border-slate-200/60 dark:border-slate-800/80 transition-all">
+    <div class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
+      <a href="#" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded-xl bg-gradient-to-tr from-orange-500 to-amber-400 flex items-center justify-center text-white shadow-md shadow-orange-500/20 font-bold text-sm">
+          ❤️
+        </div>
+        <span class="font-bold tracking-tight text-lg group-hover:text-orange-500 transition-colors">从心出发</span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600 dark:text-slate-300">
+        <a href="#about" class="hover:text-orange-500 transition-colors">关于我</a>
+        <a href="#academic" class="hover:text-orange-500 transition-colors">香港学习</a>
+        <a href="#hklife" class="hover:text-orange-500 transition-colors">山海探索</a>
+        <a href="#dailylog" class="hover:text-orange-500 transition-colors">日常自律</a>
+        <a href="#treasures" class="hover:text-orange-500 transition-colors">我的宝贝们</a>
+      </nav>
+
+      <div class="flex items-center gap-3">
+        <!-- 切换亮暗模式按钮 -->
+        <button id="theme-toggle" class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors" title="切换模式">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="pt-24 pb-20">
+    <!-- Hero 封面区 -->
+    <section id="about" class="max-w-6xl mx-auto px-6 py-12 md:py-20">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-semibold bg-orange-100 text-orange-700 dark:bg-orange-950/40 dark:text-orange-300 border border-orange-200 dark:border-orange-800/40">
+            <span class="relative flex h-2 w-2">
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
+              <span class="relative inline-flex rounded-full h-2 w-2 bg-orange-500"></span>
+            </span>
+            HKUST 跨学科学院 · TLE 项目在读
+          </div>
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold font-serif leading-tight tracking-tight text-slate-900 dark:text-white">
+            十余年职场后，<br>
+            <span class="bg-gradient-to-r from-orange-500 via-amber-500 to-rose-500 bg-clip-text text-transparent">从 ❤️ 再出发。</span>
+          </h1>
+          <p class="text-slate-600 dark:text-slate-300 text-base md:text-lg leading-relaxed">
+            职场打拼十余年，重返学术殿堂，这是一次挑战，更是一次机遇。在香港科技大学清水湾畔探索科技领导力与前沿创新的同时，也保持着自律锻炼、每周奔赴山海，以及陪伴两个宝贝健康成长。
+          </p>
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="#hklife" class="px-6 py-3 rounded-2xl bg-orange-500 hover:bg-orange-600 text-white font-medium text-sm shadow-lg shadow-orange-500/25 transition-all hover:scale-[1.02]">
+              🌏 探索香港山海足迹
+            </a>
+            <a href="#academic" class="px-6 py-3 rounded-2xl border border-slate-300 dark:border-slate-700 hover:bg-white/50 dark:hover:bg-slate-800/50 font-medium text-sm transition-all">
+              🎓 查看科研与学业
+            </a>
+          </div>
+        </div>
+
+        <!-- 视觉展示右侧徽章卡片 -->
+        <div class="lg:col-span-5">
+          <div class="glass-card rounded-3xl p-8 shadow-2xl relative overflow-hidden group">
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-orange-500/15 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="space-y-6 relative z-10">
+              <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-700/60 pb-4">
+                <div>
+                  <div class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Current Status</div>
+                  <div class="text-lg font-bold text-slate-800 dark:text-white">学术深造中</div>
+                </div>
+                <span class="px-3 py-1 rounded-full text-xs font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/50 dark:text-emerald-300">Active</span>
+              </div>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50">
+                  <div class="text-2xl font-black text-orange-500">10+</div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">年行业实战沉淀</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50/80 dark:bg-slate-800/50 border border-slate-200/50 dark:border-slate-700/50">
+                  <div class="text-2xl font-black text-emerald-500">MSc</div>
+                  <div class="text-xs text-slate-500 dark:text-slate-400 mt-1">HKUST TLE 跨学科</div>
+                </div>
+              </div>
+              <div class="p-4 rounded-2xl bg-gradient-to-r from-orange-50 to-amber-50 dark:from-slate-800 dark:to-slate-800/60 border border-orange-100 dark:border-slate-700">
+                <div class="text-xs font-semibold text-orange-600 dark:text-orange-400 mb-1">日常信念</div>
+                <div class="text-sm italic text-slate-700 dark:text-slate-300">“心有所向，日复一日；山海辽阔，步履不停。”</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 1：香港学习 (Academic & Growth) -->
+    <section id="academic" class="max-w-6xl mx-auto px-6 py-16 border-t border-slate-200/60 dark:border-slate-800/60">
+      <div class="mb-10">
+        <h2 class="text-xs uppercase tracking-widest text-orange-500 font-bold mb-2">Section 01 · 精进与探索</h2>
+        <h3 class="text-3xl font-bold font-serif text-slate-900 dark:text-white">香港科技大学 (HKUST) 学术历程</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-2xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center text-xl mb-4">
+            🏛️
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">TLE 跨学科项目</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            Technology Leadership and Entrepreneurship。融合前沿工程技术与商业领导力，致力于将硬科技落地产业场景。
+          </p>
+        </div>
+        <div class="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-300 flex items-center justify-center text-xl mb-4">
+            💡
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">智慧水下与具身智能</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            专注水下清淤机器人（DugongBot）与具身陪伴机器人设计，探索流体力学喷嘴与轻量化控制系统。
+          </p>
+        </div>
+        <div class="glass-card rounded-3xl p-6 hover:-translate-y-1 transition-all duration-300">
+          <div class="w-12 h-12 rounded-2xl bg-purple-100 dark:bg-purple-950/60 text-purple-600 dark:text-purple-300 flex items-center justify-center text-xl mb-4">
+            📖
+          </div>
+          <h4 class="text-lg font-bold text-slate-900 dark:text-white mb-2">清水湾研学日常</h4>
+          <p class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+            图书馆靠海机位、李兆基商学大楼研讨室、红鸟日晷广场。沉下心来完成每一次课业论述与商业提案。
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 2：香港生活与山海探索 (Hong Kong Life) -->
+    <section id="hklife" class="max-w-6xl mx-auto px-6 py-16 border-t border-slate-200/60 dark:border-slate-800/60">
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+        <div>
+          <h2 class="text-xs uppercase tracking-widest text-emerald-500 font-bold mb-2">Section 02 · 霓虹与山海</h2>
+          <h3 class="text-3xl font-bold font-serif text-slate-900 dark:text-white">香港微观探索足迹 (Spatial Explorer)</h3>
+        </div>
+        <p class="text-xs text-slate-400">点击任意卡片查看独家记忆与深度贴士 👆</p>
+      </div>
+
+      <!-- 地标卡片互动网格 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <!-- HKUST -->
+        <div onclick="openDrawer('hkust')" class="glass-card rounded-3xl p-5 hover:border-orange-500/50 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="h-36 rounded-2xl bg-gradient-to-tr from-orange-400 to-rose-400 flex items-center justify-center text-4xl mb-4 shadow-inner">
+            🎓
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span>清水湾 · 学术</span>
+            <span class="text-orange-500 font-semibold">★ 常驻</span>
+          </div>
+          <h4 class="font-bold text-slate-800 dark:text-white group-hover:text-orange-500 transition-colors">香港科技大学 HKUST</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">依山傍海的科研圣地，智慧池与红鸟见证每一次灵感迸发。</p>
+        </div>
+
+        <!-- 西贡 -->
+        <div onclick="openDrawer('saikung')" class="glass-card rounded-3xl p-5 hover:border-emerald-500/50 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="h-36 rounded-2xl bg-gradient-to-tr from-emerald-400 to-teal-500 flex items-center justify-center text-4xl mb-4 shadow-inner">
+            ⛵
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span>西贡码头 · 出海</span>
+            <span class="text-emerald-500 font-semibold">★ 每周 Hike</span>
+          </div>
+          <h4 class="font-bold text-slate-800 dark:text-white group-hover:text-emerald-500 transition-colors">西贡码头与国家地质公园</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">香港的后花园，远离城市喧嚣，与好友看山看海的最佳路线。</p>
+        </div>
+
+        <!-- 坚尼地城 -->
+        <div onclick="openDrawer('ktown')" class="glass-card rounded-3xl p-5 hover:border-amber-500/50 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="h-36 rounded-2xl bg-gradient-to-tr from-amber-400 to-orange-400 flex items-center justify-center text-4xl mb-4 shadow-inner">
+            🚃
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span>港岛西 · 日落</span>
+            <span class="text-amber-500 font-semibold">★ 浪漫</span>
+          </div>
+          <h4 class="font-bold text-slate-800 dark:text-white group-hover:text-amber-500 transition-colors">坚尼地城海旁</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">叮叮车的终点站，吹着海风等一场橘子海日落。</p>
+        </div>
+
+        <!-- 维多利亚港 -->
+        <div onclick="openDrawer('vic')" class="glass-card rounded-3xl p-5 hover:border-indigo-500/50 cursor-pointer transition-all hover:scale-[1.02] group">
+          <div class="h-36 rounded-2xl bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-4xl mb-4 shadow-inner">
+            🌃
+          </div>
+          <div class="flex items-center justify-between text-xs text-slate-400 mb-1">
+            <span>尖沙咀 · 天际线</span>
+            <span class="text-indigo-400 font-semibold">★ 经典</span>
+          </div>
+          <h4 class="font-bold text-slate-800 dark:text-white group-hover:text-indigo-400 transition-colors">维多利亚港天际线</h4>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 line-clamp-2">渡轮悠悠，灯火璀璨，感受世界级都市的澎湃心跳。</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 3：日常随笔 (Daily Logs) -->
+    <section id="dailylog" class="max-w-6xl mx-auto px-6 py-16 border-t border-slate-200/60 dark:border-slate-800/60">
+      <div class="mb-10">
+        <h2 class="text-xs uppercase tracking-widest text-orange-500 font-bold mb-2">Section 03 · 呼吸与日常</h2>
+        <h3 class="text-3xl font-bold font-serif text-slate-900 dark:text-white">日常微习惯与心流 (Daily Micro-habits)</h3>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="glass-card rounded-3xl p-8 space-y-4">
+          <div class="text-3xl">🏋️‍♂️</div>
+          <h4 class="text-xl font-bold text-slate-900 dark:text-white">每天健身房：小哑铃的专注时光</h4>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            生活无论多忙，每天雷打不动回到健身房做点小哑铃运动。不追求极限重量，只享受肌肉充血与心率提升带来的清醒与掌控感。身体是承载十几年职场与学术长跑的基石。
+          </p>
+          <div class="flex items-center gap-2 text-xs text-orange-500 font-medium">
+            <span>✓ 连续坚持 300+ 天</span> · <span>心率与体态调节</span>
+          </div>
+        </div>
+
+        <div class="glass-card rounded-3xl p-8 space-y-4">
+          <div class="text-3xl">🥾</div>
+          <h4 class="text-xl font-bold text-slate-900 dark:text-white">每周出动：香港山海的惬意放空</h4>
+          <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            周末约上三五好友，背上轻便水壶，从西贡大浪湾走到麦理浩径山巅。在山海相接的绿意里大口呼吸，听海浪拍击火山岩石，洗涤工作与代码带来的疲惫。
+          </p>
+          <div class="flex items-center gap-2 text-xs text-emerald-500 font-medium">
+            <span>✓ 麦理浩径徒步</span> · <span>西贡海钓与露营</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 板块 4：我的宝贝们 (My Treasures) -->
+    <section id="treasures" class="max-w-6xl mx-auto px-6 py-16 border-t border-slate-200/60 dark:border-slate-800/60">
+      <div class="mb-10 text-center max-w-xl mx-auto">
+        <h2 class="text-xs uppercase tracking-widest text-rose-500 font-bold mb-2">Section 04 · 治愈与爱</h2>
+        <h3 class="text-3xl font-bold font-serif text-slate-900 dark:text-white">我的两个宝贝</h3>
+        <p class="text-slate-500 text-sm mt-2">家庭永远是最坚强的后盾，见证他们健康快乐成长是世界上最幸福的事。</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+        <!-- 哥哥 -->
+        <div class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:shadow-xl transition-all">
+          <div class="w-16 h-16 rounded-2xl bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-300 flex items-center justify-center text-3xl mb-6">
+            🚁
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <h4 class="text-2xl font-bold text-slate-900 dark:text-white">哥哥</h4>
+              <span class="px-2.5 py-0.5 rounded-full text-xs bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300">活力小极客</span>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              天生热爱运动，充满探索精神。最近对无人机操控和航模充满狂热，周末总是兴奋地调试设备，在阳光下尽情奔跑。
+            </p>
+            <div class="pt-2 flex flex-wrap gap-2">
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"># 无人机航拍</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"># 户外运动</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"># 好奇心爆棚</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- 妹妹 -->
+        <div class="glass-card rounded-3xl p-8 relative overflow-hidden group hover:shadow-xl transition-all">
+          <div class="w-16 h-16 rounded-2xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-300 flex items-center justify-center text-3xl mb-6">
+            🩰
+          </div>
+          <div class="space-y-3">
+            <div class="flex items-center gap-2">
+              <h4 class="text-2xl font-bold text-slate-900 dark:text-white">妹妹</h4>
+              <span class="px-2.5 py-0.5 rounded-full text-xs bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300">甜美小精灵</span>
+            </div>
+            <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+              活泼可爱、眼里带笑的小姑娘。最爱随着旋律翩翩起舞，在黑白钢琴键上弹奏灵动的童年音符，是家里的小开心果。
+            </p>
+            <div class="pt-2 flex flex-wrap gap-2">
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"># 舞蹈律动</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"># 钢琴独奏</span>
+              <span class="text-xs px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"># 甜美笑容</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- 地标详情抽屉 (Slide-over Drawer) -->
+  <div id="drawer-backdrop" onclick="closeDrawer()" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 opacity-0 pointer-events-none transition-opacity duration-300"></div>
+  <div id="poi-drawer" class="fixed top-0 right-0 bottom-0 w-full max-w-md bg-white dark:bg-slate-900 z-50 p-6 shadow-2xl transform translate-x-full transition-transform duration-300 overflow-y-auto border-l border-slate-200 dark:border-slate-800">
+    <div class="flex items-center justify-between pb-4 border-b border-slate-200 dark:border-slate-800">
+      <div id="drawer-tag" class="text-xs font-bold text-orange-500 uppercase tracking-wider">HK POI DETAILS</div>
+      <button onclick="closeDrawer()" class="p-2 rounded-xl text-slate-400 hover:text-slate-600 dark:hover:text-white">✕</button>
+    </div>
+    <div class="py-6 space-y-6">
+      <div id="drawer-icon" class="text-5xl text-center py-4 bg-slate-100 dark:bg-slate-800 rounded-3xl">📍</div>
+      <div>
+        <h3 id="drawer-title" class="text-2xl font-bold font-serif text-slate-900 dark:text-white">地标名称</h3>
+        <p id="drawer-coords" class="text-xs text-slate-400 font-mono mt-1">坐标信息</p>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">我的独家记忆</h4>
+        <p id="drawer-story" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl">回忆内容...</p>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">交通与游玩贴士</h4>
+        <p id="drawer-tips" class="text-sm text-slate-600 dark:text-slate-300 leading-relaxed bg-slate-50 dark:bg-slate-800/40 p-4 rounded-2xl">交通指南...</p>
+      </div>
+      <button onclick="closeDrawer()" class="w-full py-3 rounded-2xl bg-slate-900 text-white dark:bg-white dark:text-slate-900 font-medium text-sm transition-opacity hover:opacity-90">
+        关闭详情
+      </button>
+    </div>
+  </div>
+
+  <!-- 页脚 -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-8 text-center text-xs text-slate-400">
+    <div class="max-w-6xl mx-auto px-6 space-y-2">
+      <p>Designed with Vibe Coding · Hosted on GitHub Pages</p>
+      <p>© 2025 HKUST TLE Student Project · All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- 交互逻辑 -->
+  <script>
+    // 亮暗主题切换
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('dark');
+      const isDark = document.documentElement.classList.contains('dark');
+      themeIcon.textContent = isDark ? '☀️' : '🌙';
+    });
+
+    // POI 地标数据库
+    const poiData = {
+      hkust: {
+        tag: 'HKUST · 清水湾',
+        icon: '🎓',
+        title: '香港科技大学 (HKUST)',
+        coords: '[114.2637° E, 22.3364° N]',
+        story: '依山傍海的智慧殿堂。红鸟日晷见证着无数深夜的灵感，李兆基商学大楼的讨论室记录着每一次商业与科技交锋的火花。',
+        tips: '从坑口 MTR 站乘坐 11M 小巴或彩虹站乘 91M 即可直达北闸，学术大楼海景机位绝美。'
+      },
+      saikung: {
+        tag: 'Sai Kung · 后花园',
+        icon: '⛵',
+        title: '西贡码头与国家地质公园',
+        coords: '[114.2744° E, 22.3813° N]',
+        story: '远离都市尘嚣的秘密基地。周末与朋友出海，徒步破边洲与大浪四湾，吹着海风吃一碗地道的海鲜汤粉。',
+        tips: '在西贡码头可乘坐街渡前往半月湾或桥咀洲；建议备足防晒与电解质水。'
+      },
+      ktown: {
+        tag: 'Kennedy Town · 日落',
+        icon: '🚃',
+        title: '坚尼地城海旁',
+        coords: '[114.1278° E, 22.2829° N]',
+        story: '叮叮车的最西端。黄昏时分点一杯冰咖啡，看着电车缓缓驶过，海面上泛着落日熔金的橘子海。',
+        tips: '从港铁坚尼地城站 C 出口步行 5 分钟到海旁篮球场；日落前半小时光线最佳。'
+      },
+      vic: {
+        tag: 'Victoria Harbour · 天际线',
+        icon: '🌃',
+        title: '维多利亚港 / 星光大道',
+        coords: '[114.1733° E, 22.2936° N]',
+        story: '百看不厌的港风浪漫。天星小轮在浪花中摇曳，夜幕降临后全港霓虹点亮，感受这座城市不息的脉搏。',
+        tips: '推荐花费几元港币体验天星小轮尖沙咀至中环航线，性价比极高的海上观景视角。'
+      }
+    };
+
+    function openDrawer(key) {
+      const poi = poiData[key];
+      if (!poi) return;
+      document.getElementById('drawer-tag').textContent = poi.tag;
+      document.getElementById('drawer-icon').textContent = poi.icon;
+      document.getElementById('drawer-title').textContent = poi.title;
+      document.getElementById('drawer-coords').textContent = poi.coords;
+      document.getElementById('drawer-story').textContent = poi.story;
+      document.getElementById('drawer-tips').textContent = poi.tips;
+
+      document.getElementById('drawer-backdrop').classList.remove('opacity-0', 'pointer-events-none');
+      document.getElementById('poi-drawer').classList.remove('translate-x-full');
+    }
+
+    function closeDrawer() {
+      document.getElementById('drawer-backdrop').classList.add('opacity-0', 'pointer-events-none');
+      document.getElementById('poi-drawer').classList.add('translate-x-full');
+    }
+  </script>
+</body>
+</html>
