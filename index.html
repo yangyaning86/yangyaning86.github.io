@@ -3,37 +3,43 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>从心出发 · 港科大 TLE 个人数字生活图鉴</title>
+  <title>从心出发 · 港科大 TLE 个人数字主页与山海图鉴</title>
   <style>
-    /* 全局 CSS 变量系统（100% 离线可用，无需外部 CDN） */
+    /* =========================================================
+       100% 原生纯内嵌 CSS 视觉设计系统 (零外部依赖 · 离线可用)
+       Modern Minimalist + Glassmorphic Glow & Gradients
+       ========================================================= */
     :root {
-      --bg-main: #0b0f19;
-      --bg-card: rgba(18, 26, 43, 0.75);
-      --bg-card-hover: rgba(28, 40, 65, 0.85);
+      --bg-base: #0b0f19;
+      --bg-card: rgba(18, 26, 43, 0.72);
+      --bg-card-hover: rgba(26, 38, 62, 0.88);
       --border-card: rgba(255, 255, 255, 0.08);
-      --border-card-hover: rgba(249, 115, 22, 0.4);
+      --border-card-hover: rgba(249, 115, 22, 0.45);
       --text-main: #f8fafc;
       --text-sub: #94a3b8;
       --text-muted: #64748b;
-      --accent-sunset: #f97316;
+      --accent-orange: #f97316;
       --accent-amber: #f59e0b;
       --accent-green: #10b981;
-      --accent-blue: #3b82f6;
+      --accent-blue: #38bdf8;
       --nav-bg: rgba(11, 15, 25, 0.85);
       --drawer-bg: #0f172a;
     }
 
-    /* 亮色模式配置 */
     body.light-mode {
-      --bg-main: #faf9f6;
+      --bg-base: #faf9f6;
       --bg-card: rgba(255, 255, 255, 0.85);
       --bg-card-hover: rgba(255, 255, 255, 0.98);
-      --border-card: rgba(0, 0, 0, 0.07);
-      --border-card-hover: rgba(249, 115, 22, 0.4);
+      --border-card: rgba(0, 0, 0, 0.08);
+      --border-card-hover: rgba(249, 115, 22, 0.5);
       --text-main: #0f172a;
       --text-sub: #475569;
       --text-muted: #94a3b8;
-      --nav-bg: rgba(250, 249, 246, 0.85);
+      --accent-orange: #ea580c;
+      --accent-amber: #d97706;
+      --accent-green: #059669;
+      --accent-blue: #0284c7;
+      --nav-bg: rgba(250, 249, 246, 0.88);
       --drawer-bg: #ffffff;
     }
 
@@ -41,7 +47,7 @@
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      transition: background-color 0.3s ease, border-color 0.3s ease;
+      transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
     }
 
     html {
@@ -49,411 +55,352 @@
     }
 
     body {
-      background-color: var(--bg-main);
+      background-color: var(--bg-base);
       color: var(--text-main);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
       line-height: 1.6;
       min-height: 100vh;
       overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(249, 115, 22, 0.08) 0%, transparent 40%),
+        radial-gradient(circle at 85% 75%, rgba(56, 189, 248, 0.06) 0%, transparent 45%);
+      background-attachment: fixed;
     }
 
-    /* 页面容器 */
-    .container {
-      max-width: 1140px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    /* 毛玻璃通用效果 */
-    .glass-card {
-      background: var(--bg-card);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 1px solid var(--border-card);
-      border-radius: 24px;
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .glass-card:hover {
-      background: var(--bg-card-hover);
-      border-color: var(--border-card-hover);
-      transform: translateY(-4px);
-      box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.3);
-    }
-
-    /* 顶部导航 */
+    /* 顶部毛玻璃导航 */
     header {
       position: fixed;
       top: 0;
       left: 0;
-      right: 0;
+      width: 100%;
       z-index: 100;
-      background: var(--nav-bg);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background-color: var(--nav-bg);
       border-bottom: 1px solid var(--border-card);
-      height: 70px;
     }
 
-    .nav-inner {
-      height: 70px;
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
     }
 
     .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
       display: flex;
       align-items: center;
-      gap: 10px;
-      text-decoration: none;
+      gap: 0.5rem;
       color: var(--text-main);
-      font-size: 1.15rem;
-      font-weight: 700;
+      text-decoration: none;
     }
 
-    .brand-icon {
-      width: 36px;
-      height: 36px;
-      background: linear-gradient(135deg, #f97316, #f59e0b);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #fff;
-      font-size: 18px;
+    .brand span {
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-amber));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     .nav-links {
       display: flex;
-      gap: 28px;
+      gap: 1.5rem;
+      list-style: none;
+      align-items: center;
     }
 
     .nav-links a {
-      text-decoration: none;
       color: var(--text-sub);
+      text-decoration: none;
       font-size: 0.95rem;
       font-weight: 500;
-      transition: color 0.2s;
     }
 
     .nav-links a:hover {
-      color: var(--accent-sunset);
+      color: var(--accent-orange);
     }
 
-    .theme-btn {
+    .theme-toggle {
       background: var(--bg-card);
       border: 1px solid var(--border-card);
       color: var(--text-main);
-      padding: 8px 14px;
-      border-radius: 12px;
+      padding: 0.4rem 0.8rem;
+      border-radius: 9999px;
       cursor: pointer;
-      font-size: 1rem;
+      font-size: 0.9rem;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 0.3rem;
     }
 
-    /* Hero 首屏区 */
-    .hero-section {
-      padding: 130px 0 80px 0;
+    /* 页面主布局 */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 6.5rem 1.5rem 4rem;
     }
 
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.25fr 0.95fr;
-      gap: 48px;
-      align-items: center;
+    /* Hero 头图区 */
+    .hero {
+      padding: 3rem 0 4rem;
+      text-align: left;
+    }
+
+    .badge-wrap {
+      display: flex;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
     }
 
     .badge {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
+      gap: 0.4rem;
+      background: rgba(249, 115, 22, 0.12);
+      color: var(--accent-orange);
+      border: 1px solid rgba(249, 115, 22, 0.28);
+      padding: 0.35rem 0.9rem;
       border-radius: 9999px;
       font-size: 0.85rem;
       font-weight: 600;
-      background: rgba(249, 115, 22, 0.12);
-      color: var(--accent-sunset);
-      border: 1px solid rgba(249, 115, 22, 0.3);
-      margin-bottom: 20px;
-    }
-
-    .pulse-dot {
-      width: 8px;
-      height: 8px;
-      background: var(--accent-sunset);
-      border-radius: 50%;
-      box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7);
-      animation: pulse 1.8s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.7); }
-      70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(249, 115, 22, 0); }
-      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(249, 115, 22, 0); }
     }
 
     .hero-title {
-      font-size: 3.2rem;
-      line-height: 1.2;
+      font-size: 2.75rem;
       font-weight: 800;
-      margin-bottom: 20px;
+      line-height: 1.25;
+      margin-bottom: 1.25rem;
       letter-spacing: -0.02em;
     }
 
-    .gradient-text {
-      background: linear-gradient(135deg, #f97316 0%, #fbbf24 60%, #f43f5e 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
     .hero-desc {
+      font-size: 1.15rem;
       color: var(--text-sub);
-      font-size: 1.12rem;
-      line-height: 1.8;
-      margin-bottom: 30px;
+      max-width: 820px;
+      line-height: 1.75;
+      margin-bottom: 2rem;
     }
 
-    .btn-group {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.25rem;
+      margin-top: 2rem;
     }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #f97316, #ea580c);
-      color: #fff;
-      padding: 14px 28px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-      box-shadow: 0 8px 20px rgba(249, 115, 22, 0.35);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 26px rgba(249, 115, 22, 0.45);
-    }
-
-    .btn-secondary {
+    .stat-card {
       background: var(--bg-card);
       border: 1px solid var(--border-card);
-      color: var(--text-main);
-      padding: 14px 28px;
-      border-radius: 16px;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .btn-secondary:hover {
-      border-color: var(--text-muted);
-    }
-
-    /* 仪表盘面板 */
-    .dashboard-card {
-      padding: 32px;
-    }
-
-    .stat-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 24px 0;
-    }
-
-    .stat-box {
-      background: rgba(0, 0, 0, 0.2);
-      border: 1px solid var(--border-card);
-      border-radius: 18px;
-      padding: 20px;
-    }
-
-    body.light-mode .stat-box {
-      background: #f1f5f9;
+      backdrop-filter: blur(12px);
+      border-radius: 1rem;
+      padding: 1.25rem;
     }
 
     .stat-num {
-      font-size: 2.2rem;
+      font-size: 2rem;
       font-weight: 800;
+      color: var(--accent-orange);
       line-height: 1;
-      margin-bottom: 6px;
+      margin-bottom: 0.35rem;
     }
 
     .stat-label {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
       color: var(--text-sub);
     }
 
-    .quote-box {
-      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(245, 158, 11, 0.05));
-      border: 1px solid rgba(249, 115, 22, 0.2);
-      border-radius: 16px;
-      padding: 18px;
-    }
-
-    .quote-text {
-      font-size: 0.95rem;
-      font-style: italic;
-      color: var(--text-main);
-    }
-
-    /* 章节标题 */
-    .section-wrap {
-      padding: 80px 0;
-      border-top: 1px solid var(--border-card);
+    /* Section 通用规范 */
+    .section-title-wrap {
+      margin: 4.5rem 0 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
     }
 
     .section-tag {
       font-size: 0.85rem;
       font-weight: 700;
+      color: var(--accent-orange);
       text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: var(--accent-sunset);
-      margin-bottom: 8px;
+      letter-spacing: 0.05em;
     }
 
     .section-title {
-      font-size: 2.2rem;
-      font-weight: 800;
-      margin-bottom: 36px;
+      font-size: 2rem;
+      font-weight: 700;
       letter-spacing: -0.01em;
     }
 
-    /* 3 列表网格 */
-    .grid-3 {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-    }
-
-    .feature-card {
-      padding: 32px;
-    }
-
-    .feature-icon {
-      width: 56px;
-      height: 56px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 28px;
-      margin-bottom: 20px;
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    body.light-mode .feature-icon {
-      background: #f1f5f9;
-    }
-
-    .feature-card h4 {
-      font-size: 1.25rem;
-      margin-bottom: 12px;
-      font-weight: 700;
-    }
-
-    .feature-card p {
-      color: var(--text-sub);
-      font-size: 0.95rem;
-      line-height: 1.7;
-    }
-
-    /* 地标卡片网格 (4列) */
-    .grid-4 {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
-
-    .poi-card {
-      padding: 24px;
-      cursor: pointer;
+    /* 毛玻璃卡片通用 */
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
       position: relative;
     }
 
-    .poi-cover {
-      height: 140px;
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 48px;
-      margin-bottom: 18px;
+    .card:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
     }
 
-    .poi-header {
+    /* 模块 1：学术成长 时间轴 */
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 2rem;
+    }
+
+    .timeline-date {
+      color: var(--accent-orange);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* 模块 2：香港生活 (Hike 专题相册) */
+    .hike-intro {
+      background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(56, 189, 248, 0.05));
+      border: 1px solid rgba(249, 115, 22, 0.2);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .hike-tabs {
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-card);
+      padding-bottom: 0.75rem;
+    }
+
+    .hike-tab {
+      background: transparent;
+      border: none;
+      color: var(--text-sub);
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 0.5rem 1rem;
+      border-radius: 0.5rem;
+    }
+
+    .hike-tab.active {
+      color: var(--accent-orange);
+      background: rgba(249, 115, 22, 0.12);
+    }
+
+    /* 拍立得画廊 (Polaroid Gallery) */
+    .polaroid-gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.75rem;
+    }
+
+    .polaroid-card {
+      background: #ffffff;
+      color: #1e293b;
+      padding: 0.9rem 0.9rem 1.4rem;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.35);
+      cursor: pointer;
+      transform: rotate(var(--rot, 0deg));
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .polaroid-card:hover {
+      transform: scale(1.03) rotate(0deg) !important;
+      z-index: 10;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .polaroid-img-wrap {
+      width: 100%;
+      height: 240px;
+      overflow: hidden;
+      background: #0f172a;
+      border-radius: 0.25rem;
+    }
+
+    .polaroid-img-wrap img, .polaroid-img-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .polaroid-caption {
+      margin-top: 0.9rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: Georgia, serif;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      font-size: 0.8rem;
-      color: var(--text-muted);
-      margin-bottom: 6px;
     }
 
-    .poi-highlight {
-      color: var(--accent-sunset);
-      font-weight: 700;
+    .polaroid-tag {
+      font-size: 0.75rem;
+      background: #f1f5f9;
+      padding: 0.2rem 0.5rem;
+      border-radius: 0.25rem;
+      color: #475569;
     }
 
-    .poi-card h4 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .poi-card p {
-      font-size: 0.88rem;
-      color: var(--text-sub);
-      line-height: 1.6;
-    }
-
-    /* 2 列网格 (日常微习惯 / 宝贝们) */
-    .grid-2 {
+    /* 模块 3：日常随笔 Micro-blog */
+    .micro-blog-grid {
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 28px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
     }
 
-    .habit-card {
-      padding: 36px;
+    /* 模块 4：我的宝贝们 */
+    .treasures-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
     }
 
-    .habit-icon {
-      font-size: 40px;
-      margin-bottom: 16px;
-    }
-
-    .tag-cloud {
+    .treasure-header {
       display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 18px;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
     }
 
-    .pill-tag {
-      font-size: 0.8rem;
-      padding: 5px 12px;
-      border-radius: 8px;
-      background: rgba(255, 255, 255, 0.06);
-      color: var(--text-sub);
+    .treasure-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent-orange), var(--accent-amber));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.75rem;
+      color: white;
     }
 
-    body.light-mode .pill-tag {
-      background: #e2e8f0;
-      color: #334155;
-    }
-
-    /* 抽屉弹出层 (Slide-over Drawer) */
+    /* 抽屉详情弹窗 (Drawer) */
     .drawer-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(6px);
       z-index: 200;
       opacity: 0;
       pointer-events: none;
@@ -465,419 +412,342 @@
       pointer-events: auto;
     }
 
-    .drawer-panel {
+    .drawer {
       position: fixed;
       top: 0;
-      right: 0;
-      bottom: 0;
+      right: -480px;
       width: 100%;
-      max-width: 440px;
+      max-width: 460px;
+      height: 100vh;
       background: var(--drawer-bg);
       border-left: 1px solid var(--border-card);
-      z-index: 210;
-      padding: 36px;
-      box-shadow: -10px 0 40px rgba(0, 0, 0, 0.5);
-      transform: translateX(100%);
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 201;
       overflow-y: auto;
+      padding: 2.5rem 2rem;
+      transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
-    .drawer-panel.active {
-      transform: translateX(0);
+    .drawer.active {
+      right: 0;
     }
 
     .drawer-close {
       position: absolute;
-      top: 24px;
-      right: 24px;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: transparent;
+      border: 1px solid var(--border-card);
+      color: var(--text-main);
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px solid var(--border-card);
-      color: var(--text-main);
       cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 18px;
+      font-size: 1.2rem;
     }
 
-    .drawer-icon-box {
-      font-size: 64px;
-      text-align: center;
-      padding: 24px;
-      background: rgba(255, 255, 255, 0.04);
-      border-radius: 20px;
-      margin: 20px 0;
-    }
-
-    /* 页脚 */
     footer {
       border-top: 1px solid var(--border-card);
-      padding: 40px 0;
+      padding: 3rem 1.5rem;
       text-align: center;
       color: var(--text-muted);
       font-size: 0.9rem;
     }
 
-    /* 移动端适配 */
-    @media (max-width: 900px) {
-      .hero-grid { grid-template-columns: 1fr; gap: 32px; }
-      .grid-3 { grid-template-columns: 1fr; }
-      .grid-4 { grid-template-columns: 1fr 1fr; }
-      .grid-2 { grid-template-columns: 1fr; }
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2.1rem; }
+      .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
       .nav-links { display: none; }
-      .hero-title { font-size: 2.4rem; }
-    }
-
-    @media (max-width: 600px) {
-      .grid-4 { grid-template-columns: 1fr; }
-      .stat-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-  <!-- 顶部导航栏 -->
+  <!-- 顶部毛玻璃导航 -->
   <header>
-    <div class="container nav-inner">
-      <a href="#" class="brand">
-        <div class="brand-icon">❤️</div>
-        <span>从心出发</span>
-      </a>
-
-      <nav class="nav-links">
-        <a href="#about">关于我</a>
-        <a href="#academic">香港学习</a>
-        <a href="#hklife">山海探索</a>
-        <a href="#dailylog">日常自律</a>
-        <a href="#treasures">我的宝贝们</a>
-      </nav>
-
-      <button class="theme-btn" id="theme-btn" onclick="toggleTheme()">
-        <span id="theme-icon">🌙</span>
-        <span id="theme-text" style="font-size: 0.85rem;">深色</span>
-      </button>
+    <div class="nav-container">
+      <a href="#" class="brand">❤️ <span>从心出发</span> · 港科大</a>
+      <ul class="nav-links">
+        <li><a href="#about">关于我</a></li>
+        <li><a href="#academic">香港学习</a></li>
+        <li><a href="#hike">山海徒步</a></li>
+        <li><a href="#dailylog">日常随笔</a></li>
+        <li><a href="#treasures">我的宝贝们</a></li>
+      </ul>
+      <button class="theme-toggle" onclick="toggleTheme()">🌓 切换模式</button>
     </div>
   </header>
 
   <main>
-    <!-- Hero 首屏区 -->
-    <section id="about" class="container hero-section">
-      <div class="hero-grid">
-        <div>
-          <div class="badge">
-            <span class="pulse-dot"></span>
-            <span>HKUST 跨学科学院 · TLE 项目在读</span>
-          </div>
-          <h1 class="hero-title">
-            十余年职场后，<br>
-            <span class="gradient-text">从 ❤️ 再出发。</span>
-          </h1>
-          <p class="hero-desc">
-            职场打拼十余年，重返学术殿堂。在香港科技大学清水湾畔探索科技领导力与前沿创新的同时，也保持着自律锻炼、每周奔赴山海，以及陪伴两个宝贝健康快乐成长。
-          </p>
-          <div class="btn-group">
-            <a href="#hklife" class="btn-primary">🌏 探索香港山海足迹</a>
-            <a href="#academic" class="btn-secondary">🎓 查看科研与学业</a>
-          </div>
+    <!-- Hero 区域 -->
+    <section class="hero" id="about">
+      <div class="badge-wrap">
+        <span class="badge">🎓 香港科技大学 AIS · TLE 项目在读</span>
+        <span class="badge">⛰️ 每周奔赴山海 · 西贡徒步特辑</span>
+        <span class="badge">💪 每日自律小哑铃打卡</span>
+      </div>
+      <h1 class="hero-title">十余年职场后，<br><span style="color: var(--accent-orange);">从心出发</span>，拥抱清水湾的日出与山海。</h1>
+      <p class="hero-desc">
+        职场打拼十余年，重返学术殿堂。这是一次挑战，更是一次机遇。在香港科技大学清水湾畔探索硬科技领导力与商业创新的同时，也保持着对生活的热忱——去西贡划皮划艇、登龙虾湾远眺绿蛋岛，陪伴两个宝贝茁壮成长。
+      </p>
+
+      <div class="hero-stats">
+        <div class="stat-card">
+          <div class="stat-num">10+</div>
+          <div class="stat-label">年产业实战积淀，重返校园全新启航</div>
         </div>
-
-        <!-- 个人状态看板 -->
-        <div class="glass-card dashboard-card">
-          <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-card); padding-bottom: 16px;">
-            <div>
-              <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Current Status</div>
-              <div style="font-size: 1.25rem; font-weight: 700;">学术深造 · 科技领导力</div>
-            </div>
-            <span style="background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); padding: 4px 10px; border-radius: 99px; font-size: 0.8rem; font-weight: 600;">Active</span>
-          </div>
-
-          <div class="stat-row">
-            <div class="stat-box">
-              <div class="stat-num" style="color: var(--accent-sunset);">10+</div>
-              <div class="stat-label">年产业实战积累</div>
-            </div>
-            <div class="stat-box">
-              <div class="stat-num" style="color: var(--accent-green);">MSc</div>
-              <div class="stat-label">HKUST TLE 跨学科</div>
-            </div>
-          </div>
-
-          <div class="quote-box">
-            <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-sunset); margin-bottom: 4px;">日常信念</div>
-            <div class="quote-text">“心有所向，日复一日；山海辽阔，步履不停。”</div>
-          </div>
+        <div class="stat-card">
+          <div class="stat-num">TLE</div>
+          <div class="stat-label">港科大跨学科学院 技术领导力与创业</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">2 宝贝</div>
+          <div class="stat-label">哥哥热衷航模科技 · 妹妹沉浸琴舞飞扬</div>
         </div>
       </div>
     </section>
 
-    <!-- 01 香港学习 -->
-    <section id="academic" class="section-wrap">
-      <div class="container">
-        <div class="section-tag">Section 01 · 精进与探索</div>
-        <h2 class="section-title">香港科技大学 (HKUST) 学术历程</h2>
-
-        <div class="grid-3">
-          <div class="glass-card feature-card">
-            <div class="feature-icon">🏛️</div>
-            <h4>TLE 跨学科项目</h4>
-            <p>Technology Leadership and Entrepreneurship。深度融合硬核工程技术与商业领导力，致力于将前沿科研成果推向产业落地。</p>
-          </div>
-          <div class="glass-card feature-card">
-            <div class="feature-icon">💡</div>
-            <h4>智慧水下与具身智能</h4>
-            <p>专注低扰动水下清淤机器人（DugongBot）与具身情感陪伴机器人原型研发，探索流体动力学喷嘴与轻量化控制系统设计。</p>
-          </div>
-          <div class="glass-card feature-card">
-            <div class="feature-icon">📖</div>
-            <h4>清水湾研学日常</h4>
-            <p>李兆基商学大楼的研讨机位、海景图书馆的长桌、红鸟日晷广场。在学术专注与多元思想碰撞中重构认知边界。</p>
-          </div>
-        </div>
+    <!-- 模块 1：香港学习 -->
+    <section id="academic">
+      <div class="section-title-wrap">
+        <span class="section-tag">Academic & Growth</span>
+        <h2 class="section-title">香港学习 —— 精进与探索</h2>
       </div>
-    </section>
 
-    <!-- 02 山海探索 -->
-    <section id="hklife" class="section-wrap">
-      <div class="container">
-        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 36px;">
+      <div class="timeline">
+        <div class="card timeline-item">
+          <div class="timeline-date">2024 - 至今</div>
           <div>
-            <div class="section-tag" style="color: var(--accent-green);">Section 02 · 霓虹与山海</div>
-            <h2 class="section-title" style="margin-bottom: 0;">香港微观探索足迹</h2>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">香港科技大学 (HKUST) · TLE 硕士在读</h3>
+            <p style="color: var(--text-sub); margin-bottom: 0.75rem;">
+              攻读跨学科学院（AIS）技术领导力与创业项目。深度探索人工智能、具身智能水下机器人（DugongBot）与社会创新商业模式。
+            </p>
+            <div style="display:flex; gap:0.5rem; flex-wrap:wrap;">
+              <span class="badge" style="font-size:0.75rem;">AI 创业实践</span>
+              <span class="badge" style="font-size:0.75rem;">水下机器人 desilting</span>
+              <span class="badge" style="font-size:0.75rem;">清水湾红鸟见证</span>
+            </div>
           </div>
-          <span style="font-size: 0.85rem; color: var(--text-muted);">点击卡片展开独家记忆与游玩贴士 👆</span>
         </div>
 
-        <div class="grid-4">
-          <!-- HKUST -->
-          <div class="glass-card poi-card" onclick="openDrawer('hkust')">
-            <div class="poi-cover" style="background: linear-gradient(135deg, #f97316, #fb7185);">🎓</div>
-            <div class="poi-header">
-              <span>清水湾 · 学术</span>
-              <span class="poi-highlight">★ 常驻</span>
-            </div>
-            <h4>香港科技大学</h4>
-            <p>依山傍海的科研圣地，智慧池与红鸟见证每一次灵感迸发。</p>
-          </div>
-
-          <!-- 西贡 -->
-          <div class="glass-card poi-card" onclick="openDrawer('saikung')">
-            <div class="poi-cover" style="background: linear-gradient(135deg, #10b981, #06b6d4);">⛵</div>
-            <div class="poi-header">
-              <span>西贡码头 · 出海</span>
-              <span class="poi-highlight" style="color: #10b981;">★ 每周 Hike</span>
-            </div>
-            <h4>西贡与地质公园</h4>
-            <p>香港的后花园，远离城市喧嚣，与好友看山看海的最佳路线。</p>
-          </div>
-
-          <!-- 坚尼地城 -->
-          <div class="glass-card poi-card" onclick="openDrawer('ktown')">
-            <div class="poi-cover" style="background: linear-gradient(135deg, #f59e0b, #f97316);">🚃</div>
-            <div class="poi-header">
-              <span>港岛西 · 日落</span>
-              <span class="poi-highlight" style="color: #f59e0b;">★ 浪漫</span>
-            </div>
-            <h4>坚尼地城海旁</h4>
-            <p>叮叮车的终点站，吹着海风等一场橘子海日落。</p>
-          </div>
-
-          <!-- 维港 -->
-          <div class="glass-card poi-card" onclick="openDrawer('vic')">
-            <div class="poi-cover" style="background: linear-gradient(135deg, #3b82f6, #6366f1);">🌃</div>
-            <div class="poi-header">
-              <span>尖沙咀 · 天际线</span>
-              <span class="poi-highlight" style="color: #6366f1;">★ 经典</span>
-            </div>
-            <h4>维多利亚港夜幕</h4>
-            <p>渡轮悠悠，灯火璀璨，感受世界级都市的澎湃心跳。</p>
+        <div class="card timeline-item">
+          <div class="timeline-date">十载积淀</div>
+          <div>
+            <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">产业界跨界深耕与管理沉淀</h3>
+            <p style="color: var(--text-sub);">
+              十余年一线职场洗练，从技术落地到商业化拓展。带着丰富真实的产业经验重返学术界，探寻软硬件创新与社会价值的最佳交点。
+            </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 03 日常自律 -->
-    <section id="dailylog" class="section-wrap">
-      <div class="container">
-        <div class="section-tag">Section 03 · 呼吸与日常</div>
-        <h2 class="section-title">日常微习惯与自律心流</h2>
+    <!-- 模块 2：香港山海徒步 (实拍照片与视频专属版块) -->
+    <section id="hike">
+      <div class="section-title-wrap">
+        <span class="section-tag">Hong Kong Life · Hike Special</span>
+        <h2 class="section-title">山海探索 —— 龙虾湾与绿蛋岛徒步特辑</h2>
+      </div>
 
-        <div class="grid-2">
-          <div class="glass-card habit-card">
-            <div class="habit-icon">🏋️‍♂️</div>
-            <h3 style="font-size: 1.3rem; margin-bottom: 10px;">每天健身房：小哑铃的专注时光</h3>
-            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
-              无论学业与研发多忙碌，每天雷打不动回到健身房进行力量锻炼。不盲目追求大重量，只享受肌肉泵感与心率提升带来的自律掌控感。
-            </p>
-            <div class="tag-cloud">
-              <span class="pill-tag"># 连续坚持 300+ 天</span>
-              <span class="pill-tag"># 核心力量重构</span>
-              <span class="pill-tag"># 保持清醒专注</span>
+      <div class="hike-intro">
+        <h3 style="color: var(--accent-orange); margin-bottom: 0.5rem;">🌊 每周和朋友奔赴香港的山与海</h3>
+        <p style="color: var(--text-sub); font-size: 0.95rem;">
+          香港最动人的地方，在于推开门就是大山大海。从清水湾树木研习径一路登顶龙虾湾，远眺宛如抹茶甜点的绿蛋岛；再到穿上救生衣划上双人皮划艇，在透明如同果冻般的玻璃海中破浪前行。
+        </p>
+      </div>
+
+      <!-- 拍立得相册 -->
+      <div class="polaroid-gallery">
+        <!-- 龙虾湾实拍 1: 树木研习径 -->
+        <div class="polaroid-card" style="--rot: -1.5deg;" onclick="openHikeModal('清水湾树木研习径', '沿着大坑口一路攀登，木栈道旁的指示牌指向清水湾树木研习径。碧蓝的大海像镜面一样铺展在眼前，远处的绿蛋岛清晰可见。', '西贡 · 清水湾')">
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="清水湾树木研习径步道">
+          </div>
+          <div class="polaroid-caption">
+            <span>🌿 漫步清水湾树木研习径</span>
+            <span class="polaroid-tag">龙虾湾</span>
+          </div>
+        </div>
+
+        <!-- 龙虾湾实拍 2: 远眺绿蛋岛回眸 -->
+        <div class="polaroid-card" style="--rot: 1.8deg;" onclick="openHikeModal('山海回眸 · 远眺绿蛋岛', '站在半山腰回望，海风拂过帽檐。平静无垠的西贡海面漂浮着孤悬的小岛，在香港读书的日子里，这片海总能瞬间抚平所有心绪。', '西贡 · 龙虾湾')">
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="远眺绿蛋岛">
+          </div>
+          <div class="polaroid-caption">
+            <span>🏝️ 远眺孤悬绿蛋岛</span>
+            <span class="polaroid-tag">海景</span>
+          </div>
+        </div>
+
+        <!-- 龙虾湾实拍 3: 大草坪与风筝 -->
+        <div class="polaroid-card" style="--rot: -2deg;" onclick="openHikeModal('龙虾湾放风筝大草坪', '龙虾湾尽头的大片青青斜坡草坪，抬头就是湛蓝得没有一丝杂质的天空。微风吹起五彩的风筝，这是属于香港秋天最惬意的人间烟火。', '龙虾湾郊游区')">
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80" alt="大草坪与蓝天风筝">
+          </div>
+          <div class="polaroid-caption">
+            <span>🪁 大草坪与漫天风筝</span>
+            <span class="polaroid-tag">秋日</span>
+          </div>
+        </div>
+
+        <!-- 龙虾湾实拍 4: 好友合影 -->
+        <div class="polaroid-card" style="--rot: 2.5deg;" onclick="openHikeModal('同行伙伴 · 山海青春合影', '一群志同道合的港科学术与生活伙伴，在阳光灿烂的观景台比耶合照。青春从不局限于年龄，重返校园的每一次同行都是难忘的珍藏。', '清水湾观景台')">
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="同行好友合照">
+          </div>
+          <div class="polaroid-caption">
+            <span>👭 同行好友的灿烂笑颜</span>
+            <span class="polaroid-tag">好友</span>
+          </div>
+        </div>
+
+        <!-- 绿蛋岛实拍 5: 双人皮划艇出海 (视频/动态) -->
+        <div class="polaroid-card" style="--rot: -1.2deg;" onclick="openHikeModal('绿蛋岛双人皮划艇破浪', '戴上活力橘色帽子，挥动黄色划桨，粉色皮划艇划破幽蓝的海面。从相思湾一路破浪直奔绿蛋岛，耳边只有海水翻滚与欢笑声。', '相思湾 -> 绿蛋岛')">
+          <div class="polaroid-img-wrap" style="display:flex; align-items:center; justify-content:center; background:#0284c7;">
+            <div style="text-align:center; color:white;">
+              <div style="font-size:3rem; margin-bottom:0.5rem;">🛶</div>
+              <div style="font-weight:700;">皮划艇出海实录</div>
             </div>
           </div>
+          <div class="polaroid-caption">
+            <span>🚣‍♀️ 挥桨破浪 · 划向绿蛋岛</span>
+            <span class="polaroid-tag">皮划艇</span>
+          </div>
+        </div>
 
-          <div class="glass-card habit-card">
-            <div class="habit-icon">🥾</div>
-            <h3 style="font-size: 1.3rem; margin-bottom: 10px;">每周出动：香港山海的惬意放空</h3>
-            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
-              周末约上好友，背上水壶直奔西贡大浪湾或麦理浩径山巅。在山海相接的辽阔绿意里大口呼吸，听海浪拍打火山岩石，洗涤一周的疲惫。
-            </p>
-            <div class="tag-cloud">
-              <span class="pill-tag"># 麦理浩径徒步</span>
-              <span class="pill-tag"># 西贡海风放空</span>
-              <span class="pill-tag"># 户外山海疗愈</span>
-            </div>
+        <!-- 绿蛋岛实拍 6: 纯净透明玻璃海 -->
+        <div class="polaroid-card" style="--rot: 2deg;" onclick="openHikeModal('绿蛋岛玻璃海与水下鹅卵石', '低头看去，水面清澈见底，水下五彩斑斓的鹅卵石和嶙峋岩石在阳光折射下泛着微光。这就是香港被称为玻璃海的治愈秘境。', '绿蛋岛浅滩')">
+          <div class="polaroid-img-wrap">
+            <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80" alt="清澈见底的玻璃海水面与鹅卵石">
+          </div>
+          <div class="polaroid-caption">
+            <span>🌊 见底的纯净果冻玻璃海</span>
+            <span class="polaroid-tag">玻璃海</span>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 04 我的宝贝们 -->
-    <section id="treasures" class="section-wrap">
-      <div class="container">
-        <div style="text-align: center; max-width: 600px; margin: 0 auto 40px auto;">
-          <div class="section-tag" style="color: #f43f5e;">Section 04 · 治愈与爱</div>
-          <h2 class="section-title" style="margin-bottom: 10px;">我的两个宝贝</h2>
-          <p style="color: var(--text-sub); font-size: 0.95rem;">家庭永远是最坚实的后盾，陪伴两个宝贝健康快乐成长是世界上最幸福的事。</p>
+    <!-- 模块 3：日常随笔 -->
+    <section id="dailylog">
+      <div class="section-title-wrap">
+        <span class="section-tag">Daily Logs</span>
+        <h2 class="section-title">日常随笔 —— 呼吸与自律</h2>
+      </div>
+
+      <div class="micro-blog-grid">
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem;">
+            <span style="color:var(--accent-orange); font-weight:700;">💪 晨起小哑铃打卡</span>
+            <span style="color:var(--text-muted); font-size:0.85rem;">每日习惯</span>
+          </div>
+          <p style="color:var(--text-sub); font-size:0.95rem;">
+            “不管前一天作业写得多晚，每天早晨还是会去健身房做几组小哑铃运动。身体微微出汗的那一刻，感觉整个人被彻底唤醒，心绪也随之安定。”
+          </p>
         </div>
 
-        <div class="grid-2">
-          <!-- 哥哥 -->
-          <div class="glass-card habit-card">
-            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
-              <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(59, 130, 246, 0.15); display: flex; align-items: center; justify-content: center; font-size: 26px;">🚁</div>
-              <div>
-                <h3 style="font-size: 1.3rem;">哥哥</h3>
-                <span style="font-size: 0.8rem; color: #3b82f6; font-weight: 600;">活力小极客 · 探索者</span>
-              </div>
-            </div>
-            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
-              天生热爱运动，充满探索精神。最近对无人机操控和航模充满狂热，周末总是兴奋地调试设备，在阳光下尽情奔跑。
-            </p>
-            <div class="tag-cloud">
-              <span class="pill-tag"># 无人机航拍</span>
-              <span class="pill-tag"># 户外跑步</span>
-              <span class="pill-tag"># 科技好奇心</span>
+        <div class="card">
+          <div style="display:flex; justify-content:space-between; margin-bottom:0.75rem;">
+            <span style="color:var(--accent-blue); font-weight:700;">🎧 清水湾落日歌单</span>
+            <span style="color:var(--text-muted); font-size:0.85rem;">在听的歌</span>
+          </div>
+          <p style="color:var(--text-sub); font-size:0.95rem;">
+            “坐在港科大图书馆窗边，看着落日慢慢沉入牛尾海。单曲循环着陈奕迅的《沙龙》，心有所向，日复一日，步履不停。”
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 模块 4：我的宝贝们 -->
+    <section id="treasures">
+      <div class="section-title-wrap">
+        <span class="section-tag">My Treasures</span>
+        <h2 class="section-title">我的宝贝们 —— 治愈与挚爱</h2>
+      </div>
+
+      <div class="treasures-grid">
+        <!-- 哥哥专属档案卡 -->
+        <div class="card">
+          <div class="treasure-header">
+            <div class="treasure-avatar">🚁</div>
+            <div>
+              <h3 style="font-size:1.25rem;">哥哥 · 探索与活力</h3>
+              <p style="color:var(--accent-orange); font-size:0.85rem; font-weight:600;">热爱运动 · 无人机探索小达人</p>
             </div>
           </div>
+          <p style="color:var(--text-sub); font-size:0.95rem; line-height:1.7;">
+            永远精力充沛的少年。只要一拿到无人机遥控器，眼睛里就闪烁着工程师般的专注光芒。热爱各类户外运动，无论攀岩还是奔跑，总有着不服输的坚韧劲。
+          </p>
+          <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+            <span class="badge" style="font-size:0.75rem;">科技好奇心</span>
+            <span class="badge" style="font-size:0.75rem;">无人机航拍</span>
+          </div>
+        </div>
 
-          <!-- 妹妹 -->
-          <div class="glass-card habit-card">
-            <div style="display: flex; align-items: center; gap: 14px; margin-bottom: 16px;">
-              <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(244, 63, 94, 0.15); display: flex; align-items: center; justify-content: center; font-size: 26px;">🩰</div>
-              <div>
-                <h3 style="font-size: 1.3rem;">妹妹</h3>
-                <span style="font-size: 0.8rem; color: #f43f5e; font-weight: 600;">甜美小精灵 · 艺术家</span>
-              </div>
+        <!-- 妹妹专属档案卡 -->
+        <div class="card">
+          <div class="treasure-header">
+            <div class="treasure-avatar" style="background: linear-gradient(135deg, #ec4899, #f43f5e);">🎹</div>
+            <div>
+              <h3 style="font-size:1.25rem;">妹妹 · 灵动与优雅</h3>
+              <p style="color:#ec4899; font-size:0.85rem; font-weight:600;">热爱跳舞 · 琴键上的灵动少女</p>
             </div>
-            <p style="color: var(--text-sub); font-size: 0.95rem; line-height: 1.7;">
-              活泼可爱、眼里带笑的小姑娘。最爱随着旋律翩翩起舞，在黑白钢琴键上弹奏灵动的童年乐章，是家里时刻充满欢笑的开心果。
-            </p>
-            <div class="tag-cloud">
-              <span class="pill-tag"># 芭蕾律动</span>
-              <span class="pill-tag"># 钢琴独奏</span>
-              <span class="pill-tag"># 甜美治愈</span>
-            </div>
+          </div>
+          <p style="color:var(--text-sub); font-size:0.95rem; line-height:1.7;">
+            活泼可爱的小姑娘。听到音乐节拍就会情不自禁翩翩起舞，端坐在钢琴前时，指尖又能流淌出温柔灵动的旋律。她是整个家庭最贴心的“治愈小棉袄”。
+          </p>
+          <div style="margin-top:1rem; display:flex; gap:0.5rem;">
+            <span class="badge" style="font-size:0.75rem; background:rgba(236,72,153,0.12); color:#ec4899; border-color:rgba(236,72,153,0.3);">舞蹈精灵</span>
+            <span class="badge" style="font-size:0.75rem; background:rgba(236,72,153,0.12); color:#ec4899; border-color:rgba(236,72,153,0.3);">黑白琴键</span>
           </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- 详情抽屉 (Slide Drawer) -->
-  <div class="drawer-overlay" id="drawer-overlay" onclick="closeDrawer()"></div>
-  <div class="drawer-panel" id="drawer-panel">
+  <!-- 详情抽屉 (Drawer) -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
+  <div class="drawer" id="hikeDrawer">
     <button class="drawer-close" onclick="closeDrawer()">✕</button>
-    <div style="font-size: 0.8rem; font-weight: 700; color: var(--accent-sunset); text-transform: uppercase;" id="drawer-tag">HK POI DETAILS</div>
-    <div class="drawer-icon-box" id="drawer-icon">📍</div>
-    <h3 style="font-size: 1.6rem; font-weight: 800; margin-bottom: 6px;" id="drawer-title">地标标题</h3>
-    <div style="font-size: 0.85rem; color: var(--text-muted); font-family: monospace; margin-bottom: 24px;" id="drawer-coords">坐标</div>
-
-    <div style="margin-bottom: 20px;">
-      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">我的独家记忆</h4>
-      <p style="background: rgba(255, 255, 255, 0.04); padding: 16px; border-radius: 14px; color: var(--text-sub); font-size: 0.92rem;" id="drawer-story">回忆故事...</p>
+    <div style="margin-top: 1.5rem;">
+      <span class="badge" id="modalTag">西贡徒步</span>
+      <h3 style="font-size: 1.75rem; margin: 1rem 0 0.5rem;" id="modalTitle">地标标题</h3>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-bottom: 1.5rem;" id="modalLocation">📍 香港 · 西贡</p>
+      <div style="width: 100%; height: 200px; background: rgba(255,255,255,0.05); border-radius: 1rem; margin-bottom: 1.5rem; display:flex; align-items:center; justify-content:center; font-size:3rem;">
+        ⛰️
+      </div>
+      <h4 style="font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--accent-orange);">徒步记忆与心境</h4>
+      <p style="color: var(--text-sub); line-height: 1.8; font-size: 0.95rem;" id="modalDesc">
+        这里是详细的记录...
+      </p>
     </div>
-
-    <div style="margin-bottom: 30px;">
-      <h4 style="font-size: 0.85rem; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px;">交通与游玩贴士</h4>
-      <p style="background: rgba(255, 255, 255, 0.04); padding: 16px; border-radius: 14px; color: var(--text-sub); font-size: 0.92rem;" id="drawer-tips">游玩贴士...</p>
-    </div>
-
-    <button onclick="closeDrawer()" class="btn-primary" style="width: 100%; border: none; cursor: pointer; text-align: center;">关闭详情</button>
   </div>
 
-  <!-- 页脚 -->
   <footer>
-    <div class="container">
-      <p>Designed with Vibe Coding · 100% Standalone Pure CSS · Hosted on GitHub Pages</p>
-      <p style="margin-top: 6px; font-size: 0.8rem;">© 2025 HKUST TLE Student Project · All Rights Reserved.</p>
-    </div>
+    <p>© 2024 yangyaning86 · 基于 Vibe Coding 理念开发 · 部署于 GitHub Pages</p>
+    <p style="margin-top:0.35rem; font-size:0.8rem;">香港科技大学 跨学科学院 (HKUST AIS) TLE 项目</p>
   </footer>
 
-  <!-- 交互脚本 -->
   <script>
-    // 亮暗模式切换
+    // 切换亮色 / 深色主题
     function toggleTheme() {
-      const isLight = document.body.classList.toggle('light-mode');
-      document.getElementById('theme-icon').textContent = isLight ? '☀️' : '🌙';
-      document.getElementById('theme-text').textContent = isLight ? '浅色' : '深色';
+      document.body.classList.toggle('light-mode');
     }
 
-    // 地标数据库
-    const poiData = {
-      hkust: {
-        tag: 'HKUST · 清水湾',
-        icon: '🎓',
-        title: '香港科技大学 (HKUST)',
-        coords: '[114.2637° E, 22.3364° N]',
-        story: '依山傍海的智慧殿堂。红鸟日晷见证着无数深夜的研讨灵感，李兆基商学大楼的研讨室记录着每一次商业与科技交锋的火花。',
-        tips: '从坑口 MTR 站乘坐 11M 小巴或彩虹站乘 91M 即可直达北闸，学术大楼海景机位视野绝佳。'
-      },
-      saikung: {
-        tag: 'Sai Kung · 后花园',
-        icon: '⛵',
-        title: '西贡码头与国家地质公园',
-        coords: '[114.2744° E, 22.3813° N]',
-        story: '远离都市尘嚣的秘密基地。周末与朋友出海，徒步破边洲与大浪四湾，吹着海风吃一碗地道的海鲜汤粉。',
-        tips: '在西贡码头可乘坐街渡前往半月湾或桥咀洲；建议穿抓地力强的徒步鞋并备足电解质水。'
-      },
-      ktown: {
-        tag: 'Kennedy Town · 日落',
-        icon: '🚃',
-        title: '坚尼地城海旁',
-        coords: '[114.1278° E, 22.2829° N]',
-        story: '叮叮车的最西端。黄昏时分点一杯冰咖啡，看着电车缓缓驶过，海面上泛着落日熔金的橘子海。',
-        tips: '从港铁坚尼地城站 C 出口步行 5 分钟到海旁篮球场；日落前半小时光线最佳。'
-      },
-      vic: {
-        tag: 'Victoria Harbour · 天际线',
-        icon: '🌃',
-        title: '维多利亚港 / 星光大道',
-        coords: '[114.1733° E, 22.2936° N]',
-        story: '百看不厌的港风浪漫。天星小轮在浪花中摇曳，夜幕降临后全港霓虹点亮，感受这座城市不息的脉搏。',
-        tips: '推荐花费几元港币体验天星小轮尖沙咀至中环航线，性价比极高的海上观景视角。'
-      }
-    };
-
-    function openDrawer(key) {
-      const data = poiData[key];
-      if (!data) return;
-      document.getElementById('drawer-tag').textContent = data.tag;
-      document.getElementById('drawer-icon').textContent = data.icon;
-      document.getElementById('drawer-title').textContent = data.title;
-      document.getElementById('drawer-coords').textContent = data.coords;
-      document.getElementById('drawer-story').textContent = data.story;
-      document.getElementById('drawer-tips').textContent = data.tips;
-
-      document.getElementById('drawer-overlay').classList.add('active');
-      document.getElementById('drawer-panel').classList.add('active');
+    // 打开徒步照片抽屉弹窗
+    function openHikeModal(title, desc, loc) {
+      document.getElementById('modalTitle').innerText = title;
+      document.getElementById('modalDesc').innerText = desc;
+      document.getElementById('modalLocation').innerText = '📍 ' + loc;
+      document.getElementById('modalTag').innerText = loc.includes('绿蛋岛') ? '皮划艇与玻璃海' : '龙虾湾步道';
+      document.getElementById('drawerOverlay').classList.add('active');
+      document.getElementById('hikeDrawer').classList.add('active');
     }
 
+    // 关闭抽屉弹窗
     function closeDrawer() {
-      document.getElementById('drawer-overlay').classList.remove('active');
-      document.getElementById('drawer-panel').classList.remove('active');
+      document.getElementById('drawerOverlay').classList.remove('active');
+      document.getElementById('hikeDrawer').classList.remove('active');
     }
   </script>
 </body>
