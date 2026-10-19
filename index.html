@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>从心出发 · 港科大 TLE 个人数字主页与山海图鉴</title>
+  <title>从心出发 · 港科大 TLE 个人主页与山海图鉴</title>
   <style>
     /* =========================================================
-       100% 原生纯内嵌 CSS 视觉设计系统 (零外部依赖 · 离线可用)
-       Modern Minimalist + Glassmorphic Glow & Gradients
+       100% 原生纯内嵌 CSS 视觉体系 (零外部依赖 · 离线秒开)
+       Modern Minimalist + Glassmorphism + Glow & Gradients
        ========================================================= */
     :root {
-      --bg-base: #0b0f19;
-      --bg-card: rgba(18, 26, 43, 0.72);
-      --bg-card-hover: rgba(26, 38, 62, 0.88);
+      --bg-base: #0a0f1d;
+      --bg-card: rgba(18, 26, 43, 0.75);
+      --bg-card-hover: rgba(28, 40, 65, 0.9);
       --border-card: rgba(255, 255, 255, 0.08);
       --border-card-hover: rgba(249, 115, 22, 0.45);
       --text-main: #f8fafc;
@@ -22,7 +22,7 @@
       --accent-amber: #f59e0b;
       --accent-green: #10b981;
       --accent-blue: #38bdf8;
-      --nav-bg: rgba(11, 15, 25, 0.85);
+      --nav-bg: rgba(10, 15, 29, 0.85);
       --drawer-bg: #0f172a;
     }
 
@@ -67,7 +67,173 @@
       background-attachment: fixed;
     }
 
-    /* 顶部毛玻璃导航 */
+    /* =========================================================
+       开场全屏动效：立体科技地球 -> 镜头放大 -> 东方之珠欢迎你
+       ========================================================= */
+    #intro-overlay {
+      position: fixed;
+      inset: 0;
+      background: #060913;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    #intro-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+      transform: scale(1.05);
+    }
+
+    .earth-container {
+      position: relative;
+      width: 320px;
+      height: 320px;
+      cursor: pointer;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .earth-sphere {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #1e3a8a, #0b192c 60%, #030712 90%);
+      box-shadow: 
+        inset -25px -25px 50px rgba(0, 0, 0, 0.9),
+        0 0 60px rgba(56, 189, 248, 0.35),
+        0 0 120px rgba(56, 189, 248, 0.15);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    /* 经纬网格与微光纹理 */
+    .earth-sphere::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: 
+        repeating-linear-gradient(0deg, transparent, transparent 18px, rgba(56, 189, 248, 0.08) 19px, transparent 20px),
+        repeating-linear-gradient(90deg, transparent, transparent 24px, rgba(56, 189, 248, 0.08) 25px, transparent 26px);
+      animation: rotateGlobe 20s linear infinite;
+    }
+
+    @keyframes rotateGlobe {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    /* 香港坐标发光脉冲点 (经度114.17, 纬度22.32) */
+    .hk-pulse {
+      position: absolute;
+      top: 38%;
+      right: 32%;
+      width: 14px;
+      height: 14px;
+      background: #f97316;
+      border-radius: 50%;
+      box-shadow: 0 0 16px #f97316, 0 0 32px #f97316;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .hk-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -10px;
+      border-radius: 50%;
+      border: 2px solid #f97316;
+      animation: pulseRipple 1.8s infinite;
+    }
+
+    @keyframes pulseRipple {
+      0% { transform: scale(0.6); opacity: 1; }
+      100% { transform: scale(2.6); opacity: 0; }
+    }
+
+    .hk-tooltip {
+      position: absolute;
+      top: -32px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(15, 23, 42, 0.9);
+      border: 1px solid rgba(249, 115, 22, 0.4);
+      color: #f8fafc;
+      padding: 0.25rem 0.6rem;
+      border-radius: 0.4rem;
+      font-size: 0.75rem;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .intro-cta-btn {
+      margin-top: 2.5rem;
+      background: linear-gradient(135deg, #f97316, #ea580c);
+      color: #ffffff;
+      border: none;
+      padding: 0.85rem 2.2rem;
+      border-radius: 9999px;
+      font-size: 1.05rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(249, 115, 22, 0.4);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .intro-cta-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 35px rgba(249, 115, 22, 0.6);
+    }
+
+    /* 东方之珠欢迎你 幕布 */
+    #pearl-curtain {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle, #0a1128 0%, #040711 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.8s ease;
+    }
+
+    #pearl-curtain.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .pearl-title {
+      font-size: 3.2rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #f8fafc 20%, #f97316 60%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 1rem;
+      letter-spacing: 0.05em;
+    }
+
+    .pearl-subtitle {
+      font-size: 1.25rem;
+      color: #94a3b8;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.8;
+    }
+
+    /* =========================================================
+       主页常规布局样式
+       ========================================================= */
     header {
       position: fixed;
       top: 0;
@@ -136,7 +302,6 @@
       gap: 0.3rem;
     }
 
-    /* 页面主布局 */
     main {
       max-width: 1200px;
       margin: 0 auto;
@@ -213,7 +378,7 @@
       color: var(--text-sub);
     }
 
-    /* Section 通用规范 */
+    /* 通用板块与卡片规范 */
     .section-title-wrap {
       margin: 4.5rem 0 2rem;
       display: flex;
@@ -235,7 +400,6 @@
       letter-spacing: -0.01em;
     }
 
-    /* 毛玻璃卡片通用 */
     .card {
       background: var(--bg-card);
       border: 1px solid var(--border-card);
@@ -253,12 +417,11 @@
       box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
     }
 
-    /* 模块 1：学术成长 时间轴 */
+    /* 模块 1：时间轴 */
     .timeline {
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      position: relative;
     }
 
     .timeline-item {
@@ -273,7 +436,7 @@
       font-size: 1.1rem;
     }
 
-    /* 模块 2：香港生活 (Hike 专题相册) */
+    /* 模块 2：山海徒步拍立得画廊 */
     .hike-intro {
       background: linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(56, 189, 248, 0.05));
       border: 1px solid rgba(249, 115, 22, 0.2);
@@ -282,31 +445,6 @@
       margin-bottom: 2rem;
     }
 
-    .hike-tabs {
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1.5rem;
-      border-bottom: 1px solid var(--border-card);
-      padding-bottom: 0.75rem;
-    }
-
-    .hike-tab {
-      background: transparent;
-      border: none;
-      color: var(--text-sub);
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      padding: 0.5rem 1rem;
-      border-radius: 0.5rem;
-    }
-
-    .hike-tab.active {
-      color: var(--accent-orange);
-      background: rgba(249, 115, 22, 0.12);
-    }
-
-    /* 拍立得画廊 (Polaroid Gallery) */
     .polaroid-gallery {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -362,18 +500,18 @@
       color: #475569;
     }
 
-    /* 模块 3：日常随笔 Micro-blog */
+    /* 模块 3：日常随笔 */
     .micro-blog-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 1.5rem;
     }
 
-    /* 模块 4：我的宝贝们 */
+    /* 模块 4：宝贝们与足球赛专区 */
     .treasures-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 1.75rem;
     }
 
     .treasure-header {
@@ -393,6 +531,22 @@
       justify-content: center;
       font-size: 1.75rem;
       color: white;
+    }
+
+    .video-showcase {
+      margin: 1.25rem 0;
+      border-radius: 0.75rem;
+      overflow: hidden;
+      border: 1px solid var(--border-card);
+      background: #000;
+      position: relative;
+    }
+
+    .video-showcase video {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
     }
 
     /* 抽屉详情弹窗 (Drawer) */
@@ -457,10 +611,39 @@
       .hero-title { font-size: 2.1rem; }
       .timeline-item { grid-template-columns: 1fr; gap: 0.5rem; }
       .nav-links { display: none; }
+      .earth-container { width: 260px; height: 260px; }
+      .pearl-title { font-size: 2.2rem; }
     }
   </style>
 </head>
 <body>
+
+  <!-- ==========================================
+       开场 3D 科技地球与“东方之珠欢迎你”交互模块
+       ========================================== -->
+  <div id="intro-overlay">
+    <div class="earth-container" id="earthBox" onclick="triggerFlyTo()">
+      <div class="earth-sphere">
+        <div class="hk-pulse" title="香港坐标 · 点击飞入">
+          <div class="hk-tooltip">📍 香港 HK</div>
+        </div>
+      </div>
+    </div>
+    <button class="intro-cta-btn" onclick="triggerFlyTo()">
+      <span>🌏 探索地球 · 飞往香港</span>
+      <span>→</span>
+    </button>
+
+    <!-- 东方之珠欢迎你 幕布 -->
+    <div id="pearl-curtain">
+      <h2 class="pearl-title">东方之珠欢迎你</h2>
+      <p class="pearl-subtitle">
+        Welcome to the Pearl of the Orient · 清水湾与维港的浪潮<br>
+        十余年职场后，从心出发，奔赴山海与学术殿堂。
+      </p>
+      <button class="intro-cta-btn" onclick="enterSite()">开启主页探索 ↓</button>
+    </div>
+  </div>
 
   <!-- 顶部毛玻璃导航 -->
   <header>
@@ -473,7 +656,10 @@
         <li><a href="#dailylog">日常随笔</a></li>
         <li><a href="#treasures">我的宝贝们</a></li>
       </ul>
-      <button class="theme-toggle" onclick="toggleTheme()">🌓 切换模式</button>
+      <div style="display:flex; gap:0.5rem; align-items:center;">
+        <button class="theme-toggle" onclick="reopenGlobe()">🌍 地球视角</button>
+        <button class="theme-toggle" onclick="toggleTheme()">🌓 模式</button>
+      </div>
     </div>
   </header>
 
@@ -501,7 +687,7 @@
         </div>
         <div class="stat-card">
           <div class="stat-num">2 宝贝</div>
-          <div class="stat-label">哥哥热衷航模科技 · 妹妹沉浸琴舞飞扬</div>
+          <div class="stat-label">哥哥热衷绿茵与科技 · 妹妹沉浸琴舞飞扬</div>
         </div>
       </div>
     </section>
@@ -551,16 +737,16 @@
       <div class="hike-intro">
         <h3 style="color: var(--accent-orange); margin-bottom: 0.5rem;">🌊 每周和朋友奔赴香港的山与海</h3>
         <p style="color: var(--text-sub); font-size: 0.95rem;">
-          香港最动人的地方，在于推开门就是大山大海。从清水湾树木研习径一路登顶龙虾湾，远眺宛如抹茶甜点的绿蛋岛；再到穿上救生衣划上双人皮划艇，在透明如同果冻般的玻璃海中破浪前行。
+          从清水湾树木研习径一路登顶龙虾湾，远眺宛如抹茶甜点的绿蛋岛；再到穿上救生衣划上双人皮划艇，在透明如同果冻般的玻璃海中破浪前行。
         </p>
       </div>
 
-      <!-- 拍立得相册 -->
+      <!-- 拍立得画廊 -->
       <div class="polaroid-gallery">
-        <!-- 龙虾湾实拍 1: 树木研习径 -->
+        <!-- 龙虾湾实拍 1 -->
         <div class="polaroid-card" style="--rot: -1.5deg;" onclick="openHikeModal('清水湾树木研习径', '沿着大坑口一路攀登，木栈道旁的指示牌指向清水湾树木研习径。碧蓝的大海像镜面一样铺展在眼前，远处的绿蛋岛清晰可见。', '西贡 · 清水湾')">
           <div class="polaroid-img-wrap">
-            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="清水湾树木研习径步道">
+            <img src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=800&q=80" alt="清水湾树木研习径">
           </div>
           <div class="polaroid-caption">
             <span>🌿 漫步清水湾树木研习径</span>
@@ -568,7 +754,7 @@
           </div>
         </div>
 
-        <!-- 龙虾湾实拍 2: 远眺绿蛋岛回眸 -->
+        <!-- 龙虾湾实拍 2 -->
         <div class="polaroid-card" style="--rot: 1.8deg;" onclick="openHikeModal('山海回眸 · 远眺绿蛋岛', '站在半山腰回望，海风拂过帽檐。平静无垠的西贡海面漂浮着孤悬的小岛，在香港读书的日子里，这片海总能瞬间抚平所有心绪。', '西贡 · 龙虾湾')">
           <div class="polaroid-img-wrap">
             <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=80" alt="远眺绿蛋岛">
@@ -579,7 +765,7 @@
           </div>
         </div>
 
-        <!-- 龙虾湾实拍 3: 大草坪与风筝 -->
+        <!-- 龙虾湾实拍 3 -->
         <div class="polaroid-card" style="--rot: -2deg;" onclick="openHikeModal('龙虾湾放风筝大草坪', '龙虾湾尽头的大片青青斜坡草坪，抬头就是湛蓝得没有一丝杂质的天空。微风吹起五彩的风筝，这是属于香港秋天最惬意的人间烟火。', '龙虾湾郊游区')">
           <div class="polaroid-img-wrap">
             <img src="https://images.unsplash.com/photo-1470246973918-29a93221c455?auto=format&fit=crop&w=800&q=80" alt="大草坪与蓝天风筝">
@@ -590,18 +776,7 @@
           </div>
         </div>
 
-        <!-- 龙虾湾实拍 4: 好友合影 -->
-        <div class="polaroid-card" style="--rot: 2.5deg;" onclick="openHikeModal('同行伙伴 · 山海青春合影', '一群志同道合的港科学术与生活伙伴，在阳光灿烂的观景台比耶合照。青春从不局限于年龄，重返校园的每一次同行都是难忘的珍藏。', '清水湾观景台')">
-          <div class="polaroid-img-wrap">
-            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=800&q=80" alt="同行好友合照">
-          </div>
-          <div class="polaroid-caption">
-            <span>👭 同行好友的灿烂笑颜</span>
-            <span class="polaroid-tag">好友</span>
-          </div>
-        </div>
-
-        <!-- 绿蛋岛实拍 5: 双人皮划艇出海 (视频/动态) -->
+        <!-- 绿蛋岛实拍 4: 双人皮划艇破浪 -->
         <div class="polaroid-card" style="--rot: -1.2deg;" onclick="openHikeModal('绿蛋岛双人皮划艇破浪', '戴上活力橘色帽子，挥动黄色划桨，粉色皮划艇划破幽蓝的海面。从相思湾一路破浪直奔绿蛋岛，耳边只有海水翻滚与欢笑声。', '相思湾 -> 绿蛋岛')">
           <div class="polaroid-img-wrap" style="display:flex; align-items:center; justify-content:center; background:#0284c7;">
             <div style="text-align:center; color:white;">
@@ -615,10 +790,10 @@
           </div>
         </div>
 
-        <!-- 绿蛋岛实拍 6: 纯净透明玻璃海 -->
+        <!-- 绿蛋岛实拍 5: 玻璃海清澈水质 -->
         <div class="polaroid-card" style="--rot: 2deg;" onclick="openHikeModal('绿蛋岛玻璃海与水下鹅卵石', '低头看去，水面清澈见底，水下五彩斑斓的鹅卵石和嶙峋岩石在阳光折射下泛着微光。这就是香港被称为玻璃海的治愈秘境。', '绿蛋岛浅滩')">
           <div class="polaroid-img-wrap">
-            <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80" alt="清澈见底的玻璃海水面与鹅卵石">
+            <img src="https://images.unsplash.com/photo-1505118380757-91f5f5632de0?auto=format&fit=crop&w=800&q=80" alt="玻璃海鹅卵石">
           </div>
           <div class="polaroid-caption">
             <span>🌊 见底的纯净果冻玻璃海</span>
@@ -658,7 +833,7 @@
       </div>
     </section>
 
-    <!-- 模块 4：我的宝贝们 -->
+    <!-- 模块 4：我的宝贝们 (含哥哥足球赛高燃专区) -->
     <section id="treasures">
       <div class="section-title-wrap">
         <span class="section-tag">My Treasures</span>
@@ -669,18 +844,33 @@
         <!-- 哥哥专属档案卡 -->
         <div class="card">
           <div class="treasure-header">
-            <div class="treasure-avatar">🚁</div>
+            <div class="treasure-avatar">⚽</div>
             <div>
-              <h3 style="font-size:1.25rem;">哥哥 · 探索与活力</h3>
-              <p style="color:var(--accent-orange); font-size:0.85rem; font-weight:600;">热爱运动 · 无人机探索小达人</p>
+              <h3 style="font-size:1.25rem;">哥哥 · 绿茵热血与科技探索</h3>
+              <p style="color:var(--accent-orange); font-size:0.85rem; font-weight:600;">足球少年 · 无人机与航模探索达人</p>
             </div>
           </div>
+          
+          <!-- 足球赛高燃实况专区 -->
+          <div class="video-showcase">
+            <div style="padding:0.75rem 1rem; background:rgba(0,0,0,0.4); display:flex; justify-content:space-between; font-size:0.85rem;">
+              <span>🏆 绿茵赛场实录 · 奋力拼抢与荣耀破门</span>
+              <span style="color:var(--accent-orange);">少年锋芒</span>
+            </div>
+            <div style="height:180px; background:linear-gradient(135deg, #166534, #15803d); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white;">
+              <div style="font-size:3.5rem; margin-bottom:0.5rem;">⚽🏃‍♂️</div>
+              <div style="font-weight:700; font-size:1.05rem;">绿茵场上的奔跑与欢呼</div>
+              <div style="font-size:0.8rem; opacity:0.85; margin-top:0.25rem;">热血射门 · 队友相拥 · 青春活力</div>
+            </div>
+          </div>
+
           <p style="color:var(--text-sub); font-size:0.95rem; line-height:1.7;">
-            永远精力充沛的少年。只要一拿到无人机遥控器，眼睛里就闪烁着工程师般的专注光芒。热爱各类户外运动，无论攀岩还是奔跑，总有着不服输的坚韧劲。
+            永远精力充沛的少年！在绿茵场上是不服输的足球小将，奔跑、传切、射门一气呵成；在课外手握无人机遥控器时，眼神里又闪烁着工程师般的沉稳专注。
           </p>
-          <div style="margin-top:1rem; display:flex; gap:0.5rem;">
-            <span class="badge" style="font-size:0.75rem;">科技好奇心</span>
-            <span class="badge" style="font-size:0.75rem;">无人机航拍</span>
+          <div style="margin-top:1rem; display:flex; gap:0.5rem; flex-wrap:wrap;">
+            <span class="badge" style="font-size:0.75rem;">⚽ 足球赛场</span>
+            <span class="badge" style="font-size:0.75rem;">🚁 无人机航拍</span>
+            <span class="badge" style="font-size:0.75rem;">🔥 少年热血</span>
           </div>
         </div>
 
@@ -692,6 +882,11 @@
               <h3 style="font-size:1.25rem;">妹妹 · 灵动与优雅</h3>
               <p style="color:#ec4899; font-size:0.85rem; font-weight:600;">热爱跳舞 · 琴键上的灵动少女</p>
             </div>
+          </div>
+          <div style="height:180px; margin:1.25rem 0; border-radius:0.75rem; background:linear-gradient(135deg, #be185d, #db2777); display:flex; flex-direction:column; align-items:center; justify-content:center; color:white;">
+            <div style="font-size:3.5rem; margin-bottom:0.5rem;">🩰🎶</div>
+            <div style="font-weight:700; font-size:1.05rem;">舞步飞扬 · 黑白琴键</div>
+            <div style="font-size:0.8rem; opacity:0.85; margin-top:0.25rem;">灵动小天使 · 治愈小棉袄</div>
           </div>
           <p style="color:var(--text-sub); font-size:0.95rem; line-height:1.7;">
             活泼可爱的小姑娘。听到音乐节拍就会情不自禁翩翩起舞，端坐在钢琴前时，指尖又能流淌出温柔灵动的旋律。她是整个家庭最贴心的“治愈小棉袄”。
@@ -729,12 +924,36 @@
   </footer>
 
   <script>
-    // 切换亮色 / 深色主题
+    // 3D 地球运镜与东方之珠欢迎动效
+    function triggerFlyTo() {
+      const box = document.getElementById('earthBox');
+      const curtain = document.getElementById('pearl-curtain');
+      box.style.transform = 'scale(4.5)';
+      setTimeout(() => {
+        curtain.classList.add('active');
+      }, 700);
+    }
+
+    function enterSite() {
+      const overlay = document.getElementById('intro-overlay');
+      overlay.classList.add('fade-out');
+    }
+
+    function reopenGlobe() {
+      const overlay = document.getElementById('intro-overlay');
+      const box = document.getElementById('earthBox');
+      const curtain = document.getElementById('pearl-curtain');
+      curtain.classList.remove('active');
+      box.style.transform = 'scale(1)';
+      overlay.classList.remove('fade-out');
+    }
+
+    // 主题切换
     function toggleTheme() {
       document.body.classList.toggle('light-mode');
     }
 
-    // 打开徒步照片抽屉弹窗
+    // 抽屉弹窗控制
     function openHikeModal(title, desc, loc) {
       document.getElementById('modalTitle').innerText = title;
       document.getElementById('modalDesc').innerText = desc;
@@ -744,7 +963,6 @@
       document.getElementById('hikeDrawer').classList.add('active');
     }
 
-    // 关闭抽屉弹窗
     function closeDrawer() {
       document.getElementById('drawerOverlay').classList.remove('active');
       document.getElementById('hikeDrawer').classList.remove('active');
